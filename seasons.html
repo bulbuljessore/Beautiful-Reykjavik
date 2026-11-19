@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Marcellus';src:url('fonts/Marcellus-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Karla';src:url('fonts/Karla-Variable.ttf') format('truetype');font-weight:200 800;font-display:swap}body{margin:0;background:#0E1B2C;color:#F3EEE4;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}a{color:#C29A4C;text-decoration:none;transition:color 160ms ease}a:hover{color:#F3EEE4}*{box-sizing:border-box}@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){*{transition-duration:0ms!important;animation-duration:0ms!important}}</style>
+</helmet>
+<div id="top" style="min-height:100vh;background:#0E1B2C;">
+<dc-import name="SiteHeader" active="seasons" hint-size="100%,78px"></dc-import>
+
+<section style="max-width:1280px;margin:0 auto;padding:56px 24px 0;display:flex;flex-direction:column;gap:32px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:14px;"><span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Seasons</span><h1 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(40px,5.4vw,68px);line-height:1.03;">When are you coming?</h1></div>
+<div style="display:flex;background:#1A2B42;border-radius:999px;padding:4px;font-size:15px;font-weight:700;">
+<span onClick="{{ setWinter }}" style="display:flex;align-items:center;gap:8px;padding:11px 26px;border-radius:999px;cursor:pointer;background:{{ wBg }};color:{{ wFg }};transition:background 220ms ease,color 220ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-active="transform:scale(0.96);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="12" y2="12"></line><line x1="12" x2="12" y1="2" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Winter</span>
+<span onClick="{{ setSummer }}" style="display:flex;align-items:center;gap:8px;padding:11px 26px;border-radius:999px;cursor:pointer;background:{{ sBg }};color:{{ sFg }};transition:background 220ms ease,color 220ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-active="transform:scale(0.96);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>Summer</span>
+</div>
+</div>
+<div id="hero-par" style="position:relative;overflow:hidden;border-radius:28px;min-height:420px;background:#1A2B42;display:flex;align-items:flex-end;">
+<img loading="lazy" src="{{ wImg }}" alt="Reykjavík in winter" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ wOp }};transform:scale({{ wSc }});transition:opacity 600ms ease,transform 1400ms cubic-bezier(0.23,1,0.32,1);">
+<img loading="lazy" src="{{ sImg }}" alt="Reykjavík in summer" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ sOp }};transform:scale({{ sSc }});transition:opacity 600ms ease,transform 1400ms cubic-bezier(0.23,1,0.32,1);">
+<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,17,29,0.88),rgba(8,17,29,0.1) 65%);"></div>
+<div style="position:relative;padding:40px;display:flex;flex-direction:column;gap:12px;max-width:640px;">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(32px,4vw,52px);line-height:1.05;">{{ heroTitle }}</h2>
+<p style="margin:0;font-size:18px;line-height:1.6;color:#E1E5EB;">{{ heroText }}</p>
+</div>
+<span style="position:absolute;right:16px;top:16px;font-size:11px;color:#F3EEE4;background:rgba(8,17,29,0.6);padding:3px 8px;border-radius:999px;pointer-events:none;">{{ heroCredit }} · Wikimedia Commons</span>
+</div>
+</section>
+
+<section style="max-width:1280px;margin:0 auto;padding:64px 24px 88px;display:flex;flex-direction:column;gap:28px;">
+<div style="display:flex;flex-direction:column;gap:8px;"><h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:36px;line-height:1.1;">{{ listTitle }}</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">
+<sc-for list="{{ tips }}" as="t" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:12px;animation:fadeUp 420ms cubic-bezier(0.23,1,0.32,1) both;">
+<div style="position:relative;aspect-ratio:16/11;border-radius:18px;overflow:hidden;background:#1A2B42;"><img src="{{ t.src }}" alt="{{ t.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);" style-hover="transform:scale(1.05);"><span style="position:absolute;right:10px;bottom:10px;font-size:11px;color:#F3EEE4;background:rgba(8,17,29,0.6);padding:3px 8px;border-radius:999px;pointer-events:none;">{{ t.credit }} · Wikimedia Commons</span><span style="position:absolute;left:12px;top:12px;background:#FFFFFF;color:#0E1B2C;font:700 12px 'Karla';padding:6px 11px;border-radius:999px;pointer-events:none;">{{ t.when }}</span></div>
+<span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:23px;">{{ t.title }}</span>
+<span style="font-size:15px;color:#C4CCD8;line-height:1.55;">{{ t.note }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="background:#FFFFFF;color:#0E1B2C;padding:80px max(24px,calc((100% - 1232px) / 2));display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:10px;"><h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:44px;line-height:1.05;max-width:640px;">Book for either season</h2></div>
+<a href="apartments.html" style="color:#0E1B2C;background:#C29A4C;padding:15px 30px;border-radius:999px;font-size:16px;font-weight:700;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#D4AE62;color:#0E1B2C;" style-active="transform:scale(0.97);">See all 13 apartments</a>
+</section>
+<dc-import name="SiteFooter" bg="#FFFFFF" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { season: 'winter' };
+  componentDidMount() { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { this.sc = () => { const el = document.getElementById('hero-par'); if (!el) return; const r = el.getBoundingClientRect(), p = Math.max(-1, Math.min(1, r.top / innerHeight)); el.querySelectorAll('img').forEach(i => { i.style.translate = '0 ' + (p * -36) + 'px'; }); }; window.addEventListener('scroll', this.sc, { passive: true }); } const h = (location.hash || '').slice(1); if (h === 'summer') this.setState({ season: 'summer' }); }
+  componentWillUnmount() { window.removeEventListener('scroll', this.sc); }
+  renderVals() {
+    const s = this.state, w = s.season === 'winter', set = k => () => { this.setState({ season: k }); history.replaceState(null, '', '#' + k); };
+    const wp = u => 'https://commons.wikimedia.org/wiki/Special:FilePath/' + u + '?width=1600';
+    const W = [
+      { src: wp('Aurora%20over%20the%20Sun%20Voyager%2C%20Central%20Reykjavik%20(37291306216).jpg'), credit: 'Aurora over the Sun Voyager', when: 'Sep – Mar', title: 'Northern lights', note: 'Best from September to March. Tour companies are listed in the guidebook.' },
+      { src: wp('Iceland%20Blue%20Lagoon.jpg'), credit: 'Photo: Sarah1990', when: 'All year', title: 'Geothermal pools', note: 'Warm outdoor pools are open all winter, a short walk or drive away.' },
+      { src: wp('A%20Snowy%20Morning%20at%20Laugevegur%20and%20Snorrabraut%20(26261760201).jpg'), credit: 'Snowy Laugavegur', when: 'Nov – Feb', title: 'Short days, cosy evenings', note: 'Arni’s picks for breakfast, lunch, dinner and bars nearby.' }];
+    const S = [
+      { src: wp('Midnight%20Sun%20(19201265575).jpg'), credit: 'Photo: Hafsteinn Robertsson', when: 'June', title: 'Midnight sun', note: 'Close to 21 hours of daylight in June, right outside on Laugavegur.' },
+      { src: wp('Humpback%20whale%2C%20Faxafl%C3%B3i%20Bay%2C%20Iceland%2C%2020230507%201022%205573.jpg'), credit: 'Faxaflói Bay', when: 'Apr – Oct', title: 'Whale watching', note: 'Boats leave from the Old Harbour, a short walk downhill.' },
+      { src: wp('Gullfoss%2C%20Su%C3%B0urland%2C%20Islandia%2C%202014-08-16%2C%20DD%20119.JPG'), credit: 'Gullfoss · Photo: Diego Delso', when: 'May – Sep', title: 'Day trips', note: 'Car rental and tour companies are in the guidebook.' }];
+    const on = ['#C29A4C', '#0E1B2C'], off = ['transparent', '#C4CCD8'];
+    const H = w ? W[0] : S[0];
+    return {
+      setWinter: set('winter'), setSummer: set('summer'), wBg: (w ? on : off)[0], wFg: (w ? on : off)[1], sBg: (w ? off : on)[0], sFg: (w ? off : on)[1],
+      wImg: W[0].src, sImg: S[0].src, wOp: w ? 1 : 0, sOp: w ? 0 : 1, wSc: w ? 1 : 1.04, sSc: w ? 1.04 : 1,
+      heroEyebrow: w ? 'September to March' : 'April to October', heroTitle: w ? 'Northern lights and warm pools' : 'Midnight sun and long days',
+      heroText: w ? 'Warm outdoor pools are open all winter. Northern lights are best from September to March, and the short days make for cosy evenings.' : 'Close to 21 hours of daylight in June. Whale-watching boats leave from the Old Harbour, a short walk downhill.',
+      heroCredit: H.credit, listEyebrow: w ? 'In winter' : 'In summer', listTitle: w ? 'What is on in winter' : 'What is on in summer', tips: w ? W : S, ctaEyebrow: w ? 'Winter stays' : 'Summer stays',
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>@keyframes skTw{0%,100%{opacity:.2}50%{opacity:1}}@keyframes skAur{0%{transform:translateX(-5%) scaleY(1) skewX(-6deg)}50%{transform:translateX(5%) scaleY(1.3) skewX(6deg)}100%{transform:translateX(-5%) scaleY(1) skewX(-6deg)}}@keyframes skGlow{0%,100%{box-shadow:0 0 30px 10px rgba(255,196,110,.35)}50%{box-shadow:0 0 48px 18px rgba(255,196,110,.55)}}@keyframes skDrift{from{transform:translateX(0)}to{transform:translateX(-50%)}}@media (prefers-reduced-motion:reduce){[data-sky] *{animation:none!important}}@media (max-width:640px){[data-sky]{height:250px!important}[data-sky-cap]{flex-direction:column!important;gap:6px!important;left:16px!important;right:16px!important;top:14px!important}[data-sky-cap] [data-sky-time]{font-size:24px!important}[data-sky-cap] span{font-size:13px}[data-sky-cap]>span{padding-top:0!important;opacity:0.8!important}}</style>
+</helmet>
+<div data-sky="1" style="position:relative;height:200px;border-radius:22px;overflow:hidden;background:linear-gradient(to bottom,{{ top }},{{ mid }} 62%,{{ hor }});font-family:'Karla',sans-serif;transition:background 2s ease;">
+<div style="position:absolute;inset:0;opacity:{{ starOp }};transition:opacity 2s ease;">
+<sc-for list="{{ stars }}" as="s" hint-placeholder-count="0"><span style="position:absolute;left:{{ s.x }};top:{{ s.y }};width:{{ s.r }};height:{{ s.r }};border-radius:50%;background:#FFFFFF;animation:skTw {{ s.d }} ease-in-out {{ s.dl }} infinite;"></span></sc-for>
+</div>
+<sc-if value="{{ aurora }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:-10%;right:-10%;top:6%;height:62%;opacity:0.6;filter:blur(18px);background:radial-gradient(ellipse 30% 55% at 22% 60%,rgba(80,230,170,0.75),transparent 70%),radial-gradient(ellipse 26% 45% at 52% 45%,rgba(70,210,190,0.6),transparent 70%),radial-gradient(ellipse 22% 50% at 78% 58%,rgba(140,110,230,0.45),transparent 70%);animation:skAur 16s ease-in-out infinite;"></div>
+</sc-if>
+<span style="position:absolute;left:{{ sunX }};top:{{ sunY }};width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#FFF3D6,#F2C27A 55%,#E39A55);opacity:{{ sunOp }};animation:skGlow 5s ease-in-out infinite;transition:left 60s linear,top 60s linear,opacity 2s ease;"></span>
+<span style="position:absolute;left:{{ moonX }};top:26%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;box-shadow:7px -3px 0 0 #EDE6D6;opacity:{{ moonOp }};transition:opacity 2s ease;"></span>
+<svg viewBox="0 0 1200 70" preserveAspectRatio="none" style="position:absolute;left:0;right:0;bottom:16px;width:100%;height:64px;"><path d="M0 70 L0 48 C60 42 110 30 170 34 S290 16 360 26 S470 42 540 30 S640 10 720 22 S860 42 940 34 S1060 24 1140 36 L1200 40 L1200 70 Z" fill="{{ ridge }}"></path></svg>
+<div style="position:absolute;left:0;right:0;bottom:0;height:18px;background:{{ water }};overflow:hidden;"><div style="width:200%;height:100%;background:repeating-linear-gradient(90deg,transparent 0 60px,rgba(255,255,255,0.10) 80px,transparent 100px),linear-gradient(to bottom,rgba(255,255,255,0.08),transparent);filter:blur(2px);animation:skDrift 40s linear infinite;opacity:{{ glint }};"></div></div>
+<div data-sky-cap="1" style="position:absolute;left:22px;top:18px;right:22px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;color:{{ ink }};">
+<div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:13px;font-weight:700;opacity:0.85;">Reykjavík right now</span><span data-sky-time="1" style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums;">{{ time }}</span><span style="font-size:14px;opacity:0.9;">{{ status }}</span></div>
+<span style="font-size:14px;font-weight:600;opacity:0.9;padding-top:2px;">{{ daylight }}</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:220}}">
+class Component extends DCLogic {
+  state = { now: Date.now() };
+  componentDidMount() { this.t = setInterval(() => this.setState({ now: Date.now() }), 60000); }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const d = new Date(this.state.now), rad = Math.PI / 180, lat = 64.1466, lon = -21.9426;
+    const start = Date.UTC(d.getUTCFullYear(), 0, 0), n = Math.floor((d - start) / 864e5);
+    const B = (360 / 365) * (n - 81) * rad, eot = 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+    const dec = 23.44 * Math.sin(B) * rad, mins = d.getUTCHours() * 60 + d.getUTCMinutes();
+    const noon = 720 - 4 * lon - eot, H = ((mins - noon) / 4) * rad;
+    const alt = Math.asin(Math.sin(lat * rad) * Math.sin(dec) + Math.cos(lat * rad) * Math.cos(dec) * Math.cos(H)) / rad;
+    const cosH0 = (Math.sin(-0.833 * rad) - Math.sin(lat * rad) * Math.sin(dec)) / (Math.cos(lat * rad) * Math.cos(dec));
+    const polarNight = cosH0 > 1, midSun = cosH0 < -1, H0 = polarNight || midSun ? 0 : Math.acos(cosH0) / rad;
+    const rise = noon - H0 * 4, set = noon + H0 * 4, hm = m => { m = ((Math.round(m) % 1440) + 1440) % 1440; return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); };
+    const S = [[-18, '#03070F', '#07101D', '#0E1B2C', '#020610'], [-8, '#07101D', '#1A2B42', '#3A4E6A', '#060D18'], [-2, '#1A2B42', '#5A4E6E', '#D98C6A', '#141E33'], [4, '#3E6A8A', '#C9A27A', '#F2C27A', '#26324A'], [12, '#5E93BD', '#9CC3DD', '#E9DCC4', '#3A4E62'], [35, '#4F8FC4', '#8FC0E2', '#D9EBF3', '#43586C']];
+    const hx = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)), mix = (a, b, t) => '#' + hx(a).map((v, i) => Math.round(v + (hx(b)[i] - v) * t).toString(16).padStart(2, '0')).join('');
+    let i = 0; while (i < S.length - 2 && alt > S[i + 1][0]) i++;
+    const t = Math.max(0, Math.min(1, (alt - S[i][0]) / (S[i + 1][0] - S[i][0]))), pick = k => mix(S[i][k], S[i + 1][k], t);
+    let sx = 50 + ((mins - noon) / 1440) * 100; sx = ((sx % 100) + 100) % 100;
+    const am = d.getUTCMonth(), auroraSeason = [8, 9, 10, 11, 0, 1, 2].includes(am);
+    const before = mins < noon;
+    let status;
+    if (polarNight) status = 'Polar night · the sun stays below the horizon today';
+    else if (midSun) status = 'Midnight sun · it won’t set tonight';
+    else if (alt > 6) status = 'Daylight · sunset at ' + hm(set);
+    else if (alt > 0) status = 'Golden hour · ' + (before ? 'sunrise was at ' + hm(rise) : 'sunset at ' + hm(set));
+    else if (alt > -6) status = (before ? 'Blue hour · sunrise at ' + hm(rise) : 'Blue hour · the sun set at ' + hm(set));
+    else status = 'Night · sunrise at ' + hm(rise) + (auroraSeason ? ' · northern lights season' : '');
+    const dl = polarNight ? 0 : midSun ? 1440 : H0 * 8;
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    const stars = Array.from({ length: 46 }, () => ({ x: (rnd() * 100).toFixed(1) + '%', y: (rnd() * 62).toFixed(1) + '%', r: (rnd() < 0.2 ? 2.5 : 1.5) + 'px', d: (2 + rnd() * 4).toFixed(1) + 's', dl: (rnd() * 4).toFixed(1) + 's' }));
+    const day = alt > 8;
+    return {
+      top: pick(1), mid: pick(2), hor: pick(3), ridge: pick(4), water: pick(4), glint: alt > 0 ? 0.9 : 0.15,
+      stars, starOp: Math.max(0, Math.min(1, (-alt - 6) / 8)), aurora: auroraSeason && alt < -10,
+      sunX: sx.toFixed(1) + '%', sunY: Math.max(14, Math.min(92, 74 - alt * 2.2)).toFixed(1) + '%', sunOp: alt > -3 ? 1 : 0,
+      moonX: ((sx + 50) % 100).toFixed(1) + '%', moonOp: alt < -4 ? 0.9 : 0,
+      ink: day ? '#0E1B2C' : '#F3EEE4', time: hm(mins), status, daylight: Math.floor(dl / 60) + 'h ' + Math.round(dl % 60) + 'm of daylight today',
+    };
+  }
+}
+</script>
+</body>
+</html>

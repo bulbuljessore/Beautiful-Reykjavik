@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Marcellus';src:url('fonts/Marcellus-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Karla';src:url('fonts/Karla-Variable.ttf') format('truetype');font-weight:200 800;font-display:swap}body{margin:0;background:#0E1B2C;color:#F3EEE4;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}a{color:#C29A4C;text-decoration:none;transition:color 160ms ease}@keyframes popIn{from{opacity:0;transform:translateY(-6px) scale(0.98)}to{opacity:1;transform:none}}a:hover{color:#F3EEE4}*{box-sizing:border-box}@keyframes gIn{from{opacity:0;transform:scale(0.98)}to{opacity:1;transform:scale(1)}}input{font-family:'Karla',sans-serif}@media (max-width:1080px){[data-nav-low]{display:none}}@media (max-width:760px){[data-bigq]{grid-template-columns:minmax(0,1fr)!important;padding:28px!important}}@media (prefers-reduced-motion:reduce){*{transition-duration:0ms!important}}</style>
+
+</helmet>
+<div id="top" style="min-height:100vh;background:#0E1B2C;">
+
+<dc-import name="SiteHeader" active="" hint-size="100%,78px"></dc-import>
+
+<section style="max-width:1280px;margin:0 auto;padding:72px 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;">
+<span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Laugavegur · Downtown Reykjavík</span>
+<h1 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(40px,5.6vw,72px);line-height:1.04;letter-spacing:0.005em;max-width:960px;text-wrap:balance;">13 apartments on Reykjavík's main street</h1>
+<p style="margin:0;font-size:19px;color:#C4CCD8;">All in one building with an elevator · book direct with Arni</p>
+</section>
+
+<div style="position:relative;z-index:20;max-width:1080px;margin:36px auto 0;padding:0 24px;">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.15fr) minmax(0,0.85fr) minmax(0,1.2fr) 60px;align-items:center;gap:2px;background:#FFFFFF;color:#0E1B2C;border-radius:999px;padding:6px;box-shadow:0 18px 50px rgba(0,0,0,0.35);">
+<div onClick="{{ openIn }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 20px;border-radius:999px;cursor:pointer;background:{{ segInBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Check in</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ inLabel }}</span></div>
+<div onClick="{{ openOut }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 20px;border-radius:999px;cursor:pointer;background:{{ segOutBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Check out</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ outLabel }}</span></div>
+<div onClick="{{ openGuests }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 20px;border-radius:999px;cursor:pointer;background:{{ segGuestsBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Guests</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ guestLabel }}</span></div>
+<div onClick="{{ openBeds }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 20px;border-radius:999px;cursor:pointer;background:{{ segBedsBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Bedrooms</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ bedLabel }}</span></div>
+<div onClick="{{ openFilters }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 20px;border-radius:999px;cursor:pointer;background:{{ segFiltersBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Filters</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ filterLabel }}</span></div>
+<div onClick="{{ doSearch }}" style="animation:brBeat 2.4s ease-in-out infinite;width:54px;height:54px;border-radius:50%;background:#C29A4C;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0E1B2C;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#D4AE62;transform:scale(1.04);" style-active="transform:scale(0.94);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div>
+</div>
+<div onClick="{{ toReviews }}" style="margin-top:18px;display:flex;justify-content:center;align-items:center;gap:10px;font-size:15px;color:#C4CCD8;cursor:pointer;transition:color 160ms ease;" style-hover="color:#F3EEE4;"><span style="display:flex;align-items:center;gap:6px;color:#C29A4C;font-weight:700;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>4.95</span><span style="text-decoration:underline;text-underline-offset:3px;">9,793 Airbnb reviews</span><span>·</span><span>Superhost</span></div>
+<sc-if value="{{ searched }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:12px;text-align:center;font-size:15px;color:#F3EEE4;"><b>{{ resultText }}</b> · <a href="#apartments" style="text-decoration:underline;">view below</a></div>
+</sc-if>
+<sc-if value="{{ showDates }}" hint-placeholder-val="{{ false }}">
+<div style="animation:popIn 180ms cubic-bezier(0.23,1,0.32,1);transform-origin:top center;position:absolute;left:24px;top:84px;width:740px;max-width:calc(100% - 48px);background:#FFFFFF;color:#0E1B2C;border-radius:28px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,0.45);display:flex;flex-direction:column;gap:18px;">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:22px;">{{ dateHint }}</span><span style="font-size:13px;color:#6B7280;">Crossed-out dates are booked · synced with Airbnb</span></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;">
+<sc-for list="{{ months }}" as="m" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:10px;">
+<span style="font-size:16px;font-weight:700;text-align:center;">{{ m.title }}</span>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);font-size:12px;color:#6B7280;text-align:center;font-weight:600;"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px 0;">
+<sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="35"><span onClick="{{ c.pick }}" style="height:40px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;border-radius:{{ c.radius }};background:{{ c.bg }};color:{{ c.fg }};text-decoration:{{ c.deco }};cursor:{{ c.cur }};transition:background 140ms ease,box-shadow 140ms ease;" style-hover="box-shadow:inset 0 0 0 1px #0E1B2C;border-radius:50%;">{{ c.label }}</span></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:15px;"><span onClick="{{ clearDates }}" style="text-decoration:underline;cursor:pointer;font-weight:600;transition:color 160ms ease;" style-hover="color:#9C7A35;">Clear dates</span><span onClick="{{ close }}" style="background:#0E1B2C;color:#F3EEE4;padding:10px 24px;border-radius:999px;cursor:pointer;font-weight:600;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#1A2B42;" style-active="transform:scale(0.96);">Done</span></div>
+</div>
+</sc-if>
+<sc-if value="{{ showGuests }}" hint-placeholder-val="{{ false }}">
+<div style="animation:popIn 180ms cubic-bezier(0.23,1,0.32,1);transform-origin:top center;position:absolute;left:36%;top:84px;width:380px;background:#FFFFFF;color:#0E1B2C;border-radius:28px;padding:12px 28px 20px;box-shadow:0 24px 60px rgba(0,0,0,0.45);display:flex;flex-direction:column;">
+<sc-for list="{{ guestRows }}" as="g" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #ECE6DA;">
+<div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:16px;font-weight:700;">{{ g.name }}</span><span style="font-size:14px;color:#6B7280;">{{ g.sub }}</span></div>
+<div style="display:flex;align-items:center;gap:14px;"><span onClick="{{ g.dec }}" style="width:34px;height:34px;border-radius:50%;border:1px solid #8A93A0;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{ g.decOp }};transition:border-color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#0E1B2C;" style-active="transform:scale(0.9);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path></svg></span><span style="width:18px;text-align:center;font-size:16px;font-weight:600;">{{ g.n }}</span><span onClick="{{ g.inc }}" style="width:34px;height:34px;border-radius:50%;border:1px solid #8A93A0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#0E1B2C;" style-active="transform:scale(0.9);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></span></div>
+</div>
+</sc-for>
+<div style="display:flex;justify-content:flex-end;padding-top:16px;"><span onClick="{{ close }}" style="background:#0E1B2C;color:#F3EEE4;padding:10px 24px;border-radius:999px;cursor:pointer;font-size:15px;font-weight:600;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#1A2B42;" style-active="transform:scale(0.96);">Done</span></div>
+</div>
+</sc-if>
+<sc-if value="{{ showBeds }}" hint-placeholder-val="{{ false }}">
+<div style="animation:popIn 180ms cubic-bezier(0.23,1,0.32,1);transform-origin:top center;position:absolute;left:50%;top:84px;width:380px;background:#FFFFFF;color:#0E1B2C;border-radius:28px;padding:24px 28px;box-shadow:0 24px 60px rgba(0,0,0,0.45);display:flex;flex-direction:column;gap:14px;">
+<span style="font-size:16px;font-weight:700;">Apartment size</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap;"><sc-for list="{{ bedOpts }}" as="b" hint-placeholder-count="5"><span onClick="{{ b.pick }}" style="border:1px solid #0E1B2C;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:15px;font-weight:600;background:{{ b.bg }};color:{{ b.fg }};transition:background 160ms ease,color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-active="transform:scale(0.95);">{{ b.label }}</span></sc-for></div>
+</div>
+</sc-if>
+<sc-if value="{{ showFilters }}" hint-placeholder-val="{{ false }}">
+<div style="animation:popIn 180ms cubic-bezier(0.23,1,0.32,1);transform-origin:top center;position:absolute;right:24px;top:84px;width:380px;background:#FFFFFF;color:#0E1B2C;border-radius:28px;padding:24px 28px;box-shadow:0 24px 60px rgba(0,0,0,0.45);display:flex;flex-direction:column;gap:18px;">
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="font-size:16px;font-weight:700;">Price per night (USD)</span>
+<div style="display:flex;gap:8px;flex-wrap:wrap;"><sc-for list="{{ priceOpts }}" as="p" hint-placeholder-count="4"><span onClick="{{ p.pick }}" style="border:1px solid #0E1B2C;padding:7px 14px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;background:{{ p.bg }};color:{{ p.fg }};transition:background 160ms ease,color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-active="transform:scale(0.95);">{{ p.label }}</span></sc-for></div></div>
+<sc-for list="{{ toggles }}" as="t" hint-placeholder-count="2">
+<div onClick="{{ t.flip }}" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:16px;font-weight:500;"><span>{{ t.label }}</span><span style="width:48px;height:28px;border-radius:999px;background:{{ t.track }};display:flex;padding:3px;transition:background 200ms ease;"><span style="width:22px;height:22px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,0.3);transform:translateX({{ t.x }});transition:transform 220ms cubic-bezier(0.23,1,0.32,1);"></span></span></div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<section style="max-width:1280px;margin:0 auto;padding:44px 24px 0;">
+<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;grid-template-rows:230px 230px;gap:10px;">
+<div style="position:relative;overflow:hidden;grid-row:span 2;border-radius:24px 8px 8px 24px;background:#1A2B42;"><img src="assets/photos/250-bedroom.jpeg" alt="Bedroom in apartment 250" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);cursor:zoom-in;" style-hover="transform:scale(1.05);" onClick="{{ openGallery }}"></div>
+<div style="position:relative;overflow:hidden;border-radius:8px;background:#1A2B42;"><img src="assets/photos/building-facade.jpeg" alt="Laugavegur 15 building" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 70%;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);cursor:zoom-in;" style-hover="transform:scale(1.05);" onClick="{{ openGallery }}"></div>
+<div style="position:relative;overflow:hidden;grid-column:span 2;border-radius:8px 24px 8px 8px;background:#1A2B42;"><img src="assets/photos/251-living.jpeg" alt="Living room in apartment 251" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);cursor:zoom-in;" style-hover="transform:scale(1.05);" onClick="{{ openGallery }}"></div>
+<div style="position:relative;overflow:hidden;grid-column:span 2;border-radius:8px;background:#1A2B42;"><img src="assets/photos/entrance-hall.jpeg" alt="Mosaic entrance hall" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);cursor:zoom-in;" style-hover="transform:scale(1.05);" onClick="{{ openGallery }}"></div>
+<div style="position:relative;overflow:hidden;border-radius:8px 8px 24px 8px;background:#1A2B42;"><img src="assets/photos/250-kitchen.jpeg" alt="Kitchen in apartment 250" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);cursor:zoom-in;" style-hover="transform:scale(1.05);" onClick="{{ openGallery }}"><span style="position:absolute;right:14px;bottom:14px;display:flex;align-items:center;gap:8px;background:#FFFFFF;color:#0E1B2C;font:600 13px 'Karla';padding:8px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);transition:transform 160ms cubic-bezier(0.23,1,0.32,1),background 160ms ease;" style-hover="background:#F3EEE4;" style-active="transform:scale(0.96);" onClick="{{ openGallery }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>Show all {{ galleryCount }} photos</span></div>
+</div>
+<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:12px 40px;padding:32px 0;font-size:15px;color:#C4CCD8;">
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#C29A4C;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg></span>Superhost for 10 years</span>
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#C29A4C;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>Help 24 hours a day</span>
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#C29A4C;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2"></path><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14"></path><path d="M10 20h4"></path><circle cx="16" cy="20" r="2"></circle><circle cx="8" cy="20" r="2"></circle></svg></span>Secure luggage storage</span>
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#C29A4C;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg></span>Calendar synced with Airbnb</span>
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#C29A4C;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>Secure payment</span>
+</div>
+</section>
+
+<section id="apartments" style="background:#FFFFFF;color:#0E1B2C;padding:72px max(24px,calc((100% - 1232px) / 2));display:flex;flex-direction:column;gap:28px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#9C7A35;font-weight:700;">The apartments</span><h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:44px;line-height:1.05;">From studios to a three-bedroom for nine</h2></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:600;">
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="5"><span onClick="{{ c.pick }}" style="padding:9px 16px;border-radius:999px;cursor:pointer;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};transition:background 180ms ease,color 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#0E1B2C;" style-active="transform:scale(0.96);">{{ c.label }}</span></sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:36px 24px;">
+<sc-for list="{{ apts }}" as="a" hint-placeholder-count="8">
+<div data-card="1" onClick="{{ a.go }}" onMouseEnter="{{ a.enter }}" onMouseLeave="{{ a.leave }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform 220ms cubic-bezier(0.23,1,0.32,1);" style-hover="transform:translateY(-3px);">
+<div style="position:relative;aspect-ratio:4/3.4;border-radius:18px;box-shadow:{{ a.shadow }};transition:box-shadow 220ms ease;background:repeating-linear-gradient(135deg,#EEE9E0 0 10px,#E6E0D4 10px 20px);display:flex;align-items:center;justify-content:center;font:12px ui-monospace,monospace;color:#7A7468;overflow:hidden;">photos · {{ a.num }}<sc-for list="{{ a.slides }}" as="sl" hint-placeholder-count="0"><img src="{{ sl.src }}" alt="Apartment {{ a.num }}, photo {{ sl.n }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ sl.op }};transform:scale({{ sl.sc }});transition:opacity 420ms ease,transform 1400ms cubic-bezier(0.23,1,0.32,1);"></sc-for>
+<span style="position:absolute;left:12px;top:12px;background:#FFFFFF;color:#0E1B2C;font:700 12px 'Karla';padding:6px 11px;border-radius:999px;box-shadow:0 1px 4px rgba(0,0,0,0.12);">{{ a.type }}</span>
+<span aria-label="Save apartment" style="position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);color:#0E1B2C;display:flex;align-items:center;justify-content:center;transition:transform 160ms cubic-bezier(0.23,1,0.32,1),color 160ms ease;" style-hover="color:#B4483A;" style-active="transform:scale(0.88);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.25c-.3 0-.6-.1-.84-.28C8.4 17.9 3 13.7 3 8.9 3 6.2 5.1 4 7.7 4c1.7 0 3.2.9 4.3 2.3C13.1 4.9 14.6 4 16.3 4 18.9 4 21 6.2 21 8.9c0 4.8-5.4 9-8.16 11.07-.24.18-.54.28-.84.28Z"></path></svg></span>
+<span style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:5px 7px;border-radius:999px;background:rgba(14,27,44,0.28);backdrop-filter:blur(4px);"><sc-for list="{{ a.dots }}" as="d" hint-placeholder-count="4"><span style="width:{{ d.w }};height:6px;border-radius:999px;background:{{ d.bg }};transition:width 260ms cubic-bezier(0.23,1,0.32,1),background 200ms ease;"></span></sc-for></span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-top:4px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:22px;">Apartment {{ a.num }}</span><span style="display:flex;align-items:center;gap:4px;font-size:14px;white-space:nowrap;"><span style="color:#9C7A35;display:flex;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>{{ a.rating }} <span style="color:#6B7280;">{{ a.countLabel }}</span></span></div>
+<div style="display:flex;gap:16px;font-size:14px;color:#4A5566;"><span style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Sleeps {{ a.sleeps }}</span><span style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>{{ a.type }}</span></div>
+<span style="font-size:15px;color:#6B7280;">Add dates for prices</span>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ canShowMore }}" hint-placeholder-val="{{ true }}">
+<span onClick="{{ showAll }}" style="align-self:center;border:1px solid #0E1B2C;color:#0E1B2C;padding:13px 28px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;transition:background 180ms ease,color 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#0E1B2C;color:#F3EEE4;" style-active="transform:scale(0.97);">{{ moreLabel }}</span>
+</sc-if>
+</section>
+
+<section id="reviews" data-reviews="home" style="background:#08111D;">
+<div style="max-width:1280px;margin:0 auto;padding:80px 24px;display:flex;flex-direction:column;gap:40px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:12px;">
+<span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Guest reviews</span>
+<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;"><span style="display:flex;align-items:center;gap:12px;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:64px;line-height:1;"><span style="color:#C29A4C;display:flex;"><svg width="44" height="44" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>4.95</span><span style="font-size:18px;color:#C4CCD8;max-width:340px;">from 9,793 reviews across our 13 Airbnb listings</span></div>
+</div>
+<a href="reviews.html" style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;border:1px solid #3A4E6A;padding:11px 20px;border-radius:999px;transition:border-color 160ms ease,color 160ms ease;" style-hover="border-color:#C29A4C;">See all 9,793 reviews on Airbnb<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3"></path></svg></a>
+</div>
+<dc-import name="RatingBadge" variant="band" dark="true" rating="4.95" label="Guest favorite" sub="All 13 of our apartments are Guest favorites on Airbnb, among the most loved homes according to guests." count="9,793" hint-size="100%,112px"></dc-import>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;">
+<div data-bigq="1" style="grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:48px;align-items:end;background:#1A2B42;border:1px solid #22324A;border-radius:24px;padding:40px;">
+<p style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;line-height:1.4;text-wrap:pretty;">“Arni was absolutely amazing from start to finish. I had to message him a few times to get information and he responded very quickly. The apartment was brilliant with some amazing interior design and attention to detail. It was in the perfect location and have everything we needed for a full weeks stay. Thanks so much and we will definitely be back.”</p>
+<div style="display:flex;flex-direction:column;gap:10px;justify-self:start;"><span style="display:flex;gap:3px;color:#C29A4C;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span><span style="font-size:18px;font-weight:700;">Steven</span><span style="font-size:14px;color:#9AA5B5;">via Airbnb</span></div>
+</div>
+<div data-marq="1" style="grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;height:680px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 91%,transparent);">
+<sc-for list="{{ reviewCols }}" as="col" hint-placeholder-count="3"><div style="overflow:hidden;min-width:0;"><div data-mq-track="1" style="display:flex;flex-direction:column;animation:{{ col.anim }};will-change:transform;">
+<sc-for list="{{ col.items }}" as="r" hint-placeholder-count="6"><div style="margin-bottom:18px;background:#1A2B42;border:1px solid #22324A;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;"><div style="display:flex;gap:12px;align-items:center;"><span style="width:40px;height:40px;flex:none;border-radius:50%;background:#4F7A86;display:flex;align-items:center;justify-content:center;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:17px;">{{ r.initial }}</span><div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:15px;font-weight:700;">{{ r.name }}</span><span style="font-size:13px;color:#9AA5B5;">{{ r.from }}</span></div></div><p style="margin:0;font-size:15.5px;line-height:1.6;color:#E1E5EB;white-space:pre-line;text-wrap:pretty;">{{ r.text }}</p><span style="font-size:13px;color:#9AA5B5;">Apartment {{ r.apt }} · {{ r.when }} · via Airbnb</span></div></sc-for>
+</div></div></sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="host" style="background:#F3EEE4;color:#0E1B2C;padding:88px max(24px,calc((100% - 1232px) / 2));display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:56px;align-items:center;">
+<div style="background:#FFFFFF;border-radius:28px;padding:32px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;box-shadow:0 20px 50px rgba(14,27,44,0.12);max-width:470px;">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;">
+<div style="position:relative;width:136px;height:136px;"><img src="assets/host-arni.jpg" alt="Arni" style="width:136px;height:136px;border-radius:50%;object-fit:cover;object-position:50% 35%;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);cursor:zoom-in;" style-hover="transform:scale(1.05);" onClick="{{ openGallery }}"><span style="position:absolute;right:0;bottom:6px;width:38px;height:38px;border-radius:50%;background:#C29A4C;color:#0E1B2C;display:flex;align-items:center;justify-content:center;border:3px solid #FFFFFF;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span></div>
+<span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:32px;padding-top:4px;">Arni</span>
+<span style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#4A5566;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Superhost</span>
+</div>
+<div style="display:flex;flex-direction:column;">
+<div style="display:flex;flex-direction:column;padding:10px 0;border-bottom:1px solid #ECE6DA;"><span style="font-size:24px;font-weight:700;">9,793</span><span style="font-size:13px;color:#5A6474;">Reviews</span></div>
+<div style="display:flex;flex-direction:column;padding:10px 0;border-bottom:1px solid #ECE6DA;"><span style="display:flex;align-items:center;gap:6px;font-size:24px;font-weight:700;">4.95<span style="display:flex;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span></span><span style="font-size:13px;color:#5A6474;">Rating</span></div>
+<div style="display:flex;flex-direction:column;padding:10px 0;"><span style="font-size:24px;font-weight:700;">10</span><span style="font-size:13px;color:#5A6474;">Years hosting</span></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px;">
+<span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#9C7A35;font-weight:700;">Meet your host</span>
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:44px;line-height:1.05;">Arni and the team</h2>
+<p style="margin:0;font-size:17px;line-height:1.65;color:#4A5566;max-width:580px;">Please take the time to read our reviews, we are very proud of them and grateful for our wonderful guests. We are always here to help you, 24 hours a day.</p>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;font-size:15px;color:#2A3445;max-width:600px;">
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#9C7A35;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span>Identity verified</span>
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#9C7A35;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></span>Speaks Danish, English, German</span>
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#9C7A35;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>Here to help 24 hours a day</span>
+<span style="display:flex;gap:10px;align-items:center;"><span style="color:#9C7A35;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>Lives in Reykjavík</span>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:4px;">
+<a href="host.html#message" style="display:flex;align-items:center;gap:8px;background:#0E1B2C;color:#F3EEE4;padding:13px 24px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;transition:background 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#1A2B42;" style-active="transform:scale(0.97);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Message Arni</a>
+<a href="https://www.airbnb.com/users/profile/1466767485716836146" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;border:1px solid #0E1B2C;color:#0E1B2C;padding:13px 24px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;transition:background 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#FFFFFF;" style-active="transform:scale(0.97);">View Airbnb profile<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3"></path></svg></a>
+</div>
+</div>
+</section>
+
+<section id="neighbourhood" style="max-width:1280px;margin:0 auto;padding:80px 24px;display:flex;flex-direction:column;gap:28px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Laugavegur 15</span><h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:44px;line-height:1.05;">One building on the pedestrian street</h2></div>
+<a href="neighbourhood.html" style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;border:1px solid #3A4E6A;padding:11px 20px;border-radius:999px;transition:border-color 160ms ease,color 160ms ease;" style-hover="border-color:#C29A4C;">Open Arni's guidebook<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px;">
+<sc-for list="{{ guide }}" as="g" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div style="position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px;background:#1A2B42;transition:transform 220ms cubic-bezier(0.23,1,0.32,1);" style-hover="transform:translateY(-3px);"><img src="{{ g.img }}" alt="{{ g.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);" style-hover="transform:scale(1.05);"><span style="position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:6px;background:#0E1B2C;color:#F3EEE4;font:600 13px 'Karla';padding:6px 12px;border-radius:999px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ g.dist }}</span></div>
+<div style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:21px;">{{ g.name }}</span><span style="font-size:14px;color:#9AA5B5;">{{ g.kind }}</span></div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:8px;">
+<span style="font-size:14px;color:#9AA5B5;margin-right:6px;">In the guidebook:</span>
+<sc-for list="{{ guideTopics }}" as="t" hint-placeholder-count="8"><span style="padding:8px 14px;border-radius:999px;border:1px solid #3A4E6A;font-size:14px;color:#E1E5EB;cursor:pointer;transition:border-color 160ms ease,color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;color:#C29A4C;" style-active="transform:scale(0.96);">{{ t }}</span></sc-for>
+</div>
+</section>
+
+<section id="seasons" style="background:#FFFFFF;color:#0E1B2C;padding:80px max(24px,calc((100% - 1232px) / 2));display:flex;flex-direction:column;gap:28px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#9C7A35;font-weight:700;">Seasons</span><h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:44px;line-height:1.05;">When are you coming?</h2></div>
+<div style="display:flex;background:#F1ECE3;border-radius:999px;padding:4px;font-size:15px;font-weight:700;">
+<span onClick="{{ setWinter }}" style="display:flex;align-items:center;gap:8px;padding:10px 24px;border-radius:999px;cursor:pointer;background:{{ wBg }};color:{{ wFg }};transition:background 220ms ease,color 220ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-active="transform:scale(0.96);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="12" y2="12"></line><line x1="12" x2="12" y1="2" y2="22"></line><path d="m20 16-4-4 4-4"></path><path d="m4 8 4 4-4 4"></path><path d="m16 4-4 4-4-4"></path><path d="m8 20 4-4 4 4"></path></svg>Winter</span>
+<span onClick="{{ setSummer }}" style="display:flex;align-items:center;gap:8px;padding:10px 24px;border-radius:999px;cursor:pointer;background:{{ sBg }};color:{{ sFg }};transition:background 220ms ease,color 220ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-active="transform:scale(0.96);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>Summer</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">
+<sc-for list="{{ tips }}" as="t" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:12px;">
+<div style="position:relative;aspect-ratio:16/11;border-radius:18px;overflow:hidden;background:#1A2B42;"><img src="{{ t.src }}" alt="{{ t.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 900ms cubic-bezier(0.23,1,0.32,1);" style-hover="transform:scale(1.05);"><span style="position:absolute;right:10px;bottom:10px;font-size:11px;color:#F3EEE4;background:rgba(8,17,29,0.6);padding:3px 8px;border-radius:999px;pointer-events:none;">{{ t.credit }} · Wikimedia Commons</span><span style="position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:6px;background:#FFFFFF;color:#0E1B2C;font:700 12px 'Karla';padding:6px 11px;border-radius:999px;pointer-events:none;">{{ t.when }}</span></div>
+<span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:23px;">{{ t.title }}</span>
+<span style="font-size:15px;color:#4A5566;line-height:1.5;">{{ t.note }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<footer style="padding:16px;background:#FFFFFF;">
+<div style="max-width:1400px;margin:0 auto;background:#08111D;border-radius:32px;padding:64px 56px 28px;display:flex;flex-direction:column;gap:44px;">
+<dc-import name="ReykjavikSky" hint-size="100%,200px"></dc-import>
+<div style="display:flex;flex-direction:column;gap:12px;padding-bottom:36px;border-bottom:1px solid #1A2B42;max-width:860px;">
+<span style="display:flex;gap:3px;color:#C29A4C;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+<p style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;line-height:1.35;">“Perfect option if you want to be in the midst of Reykjavik! You can tell how much care Arni and his team put into the place.”</p>
+<span style="font-size:14px;color:#9AA5B5;">Yvonne · via Airbnb</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:40px;align-items:center;">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:52px;line-height:1.05;">Your Reykjavík stay starts here.</h2>
+<div onClick="{{ openIn }}" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;align-items:center;gap:8px;background:#FFFFFF;color:#0E1B2C;border-radius:999px;padding:6px 6px 6px 24px;font-size:15px;cursor:pointer;">
+<span style="font-weight:600;">Check in</span><span style="font-weight:600;">Check out</span><span style="font-weight:600;">Guests</span>
+<span style="display:flex;align-items:center;gap:8px;background:#C29A4C;padding:12px 22px;border-radius:999px;font-weight:700;transition:background 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#D4AE62;" style-active="transform:scale(0.96);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>Search</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:minmax(240px,1.5fr) repeat(3,minmax(140px,1fr));gap:36px;padding-top:36px;border-top:1px solid #1A2B42;font-size:15px;">
+<div style="display:flex;flex-direction:column;gap:14px;"><a href="#top" onClick="{{ toTop }}" aria-label="Beautiful Reykjavik home" style="display:flex;align-self:flex-start;transition:opacity 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="opacity:0.82;" style-active="transform:scale(0.97);"><img src="assets/logo-dark-bg.svg" alt="Beautiful Reykjavik" style="height:68px;width:auto;"></a><span style="display:flex;gap:10px;color:#9AA5B5;line-height:1.6;"><span style="display:flex;padding-top:3px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>Laugavegur 15, 101 Reykjavík, Iceland</span><span style="display:flex;gap:10px;align-items:center;color:#9AA5B5;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>[email]</span><span style="display:flex;gap:10px;align-items:center;color:#9AA5B5;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>[phone]</span><div style="display:flex;gap:10px;align-items:center;padding-top:6px;"><a href="https://www.airbnb.com/users/profile/1466767485716836146" target="_blank" rel="noopener" aria-label="Airbnb" title="Airbnb" style="width:42px;height:42px;border-radius:50%;border:1px solid #2A3D57;display:flex;align-items:center;justify-content:center;color:#C4CCD8;transition:border-color 160ms ease,color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;color:#C29A4C;" style-active="transform:scale(0.92);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.5c-1.6-2-3.2-4.3-3.2-6 0-1.8 1.4-3 3.2-3s3.2 1.2 3.2 3c0 1.7-1.6 4-3.2 6Zm0 0c2 2.3 4.4 3.6 6.2 2.6 1.9-1 2-3.2.9-5.6L14.6 4.9C14 3.7 13.1 3 12 3s-2 .7-2.6 1.9L4.9 14.5c-1.1 2.4-1 4.6.9 5.6 1.8 1 4.2-.3 6.2-2.6Z"></path></svg></a><a href="#" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram" style="width:42px;height:42px;border-radius:50%;border:1px solid #2A3D57;display:flex;align-items:center;justify-content:center;color:#C4CCD8;transition:border-color 160ms ease,color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;color:#C29A4C;" style-active="transform:scale(0.92);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a href="#" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook" style="width:42px;height:42px;border-radius:50%;border:1px solid #2A3D57;display:flex;align-items:center;justify-content:center;color:#C4CCD8;transition:border-color 160ms ease,color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;color:#C29A4C;" style-active="transform:scale(0.92);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a><a href="#" target="_blank" rel="noopener" aria-label="Tripadvisor" title="Tripadvisor" style="width:42px;height:42px;border-radius:50%;border:1px solid #2A3D57;display:flex;align-items:center;justify-content:center;color:#C4CCD8;transition:border-color 160ms ease,color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;color:#C29A4C;" style-active="transform:scale(0.92);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="13" r="3.5"></circle><circle cx="17" cy="13" r="3.5"></circle><path d="M3.5 13 2 9h4"></path><path d="M20.5 13 22 9h-4"></path><path d="M6 9c3.5-2.5 8.5-2.5 12 0"></path><circle cx="7" cy="13" r="1"></circle><circle cx="17" cy="13" r="1"></circle></svg></a></div></div>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="font-weight:700;margin-bottom:4px;">Stay</span><a href="#apartments" style="color:#C4CCD8;">All apartments</a><a href="#seasons" style="color:#C4CCD8;">Winter in Reykjavík</a><a href="#seasons" style="color:#C4CCD8;">Summer in Reykjavík</a><a href="account.html#trips" style="color:#C4CCD8;">Manage a booking</a></div>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="font-weight:700;margin-bottom:4px;">Guests</span><a href="neighbourhood.html" style="color:#C4CCD8;">How to find us</a><a href="neighbourhood.html" style="color:#C4CCD8;">Keflavík Airport</a><a href="neighbourhood.html" style="color:#C4CCD8;">Parking</a><a href="about.html#rules" style="color:#C4CCD8;">House rules</a><a href="about.html#rules" style="color:#C4CCD8;">Cancellation policy</a></div>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="font-weight:700;margin-bottom:4px;">About</span><a href="#host" style="color:#C4CCD8;">Your host</a><a href="#reviews" style="color:#C4CCD8;">Reviews</a><a href="https://www.airbnb.com/users/profile/1466767485716836146" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:#C4CCD8;">Find us on Airbnb<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3"></path></svg></a></div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:#9AA5B5;padding-top:20px;border-top:1px solid #1A2B42;">
+<span>© 2026 Beautiful Reykjavik · Privacy · Terms</span>
+<div style="display:flex;gap:8px;align-items:center;"><span style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Secure payment</span><span style="border:1px solid #2A3D57;border-radius:8px;padding:5px 12px;display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>Card</span><span style="border:1px solid #2A3D57;border-radius:8px;padding:5px 12px;display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>PayPal</span><span style="border:1px solid #2A3D57;border-radius:8px;padding:5px 12px;display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"></line><line x1="6" x2="6" y1="18" y2="11"></line><line x1="10" x2="10" y1="18" y2="11"></line><line x1="14" x2="14" y1="18" y2="11"></line><line x1="18" x2="18" y1="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg>Bank transfer</span></div>
+</div>
+</div>
+</footer>
+
+<sc-if value="{{ showGallery }}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-label="All photos" style="position:fixed;inset:0;z-index:110;background:#08111D;color:#F3EEE4;display:flex;flex-direction:column;">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 24px;border-bottom:1px solid #1A2B42;">
+<a href="#top" onClick="{{ toTopClose }}" aria-label="Beautiful Reykjavik home" style="display:flex;" style-hover="opacity:0.82;"><img src="assets/logo-dark-bg.svg" alt="Beautiful Reykjavik" style="height:40px;width:auto;"></a>
+<span style="font-size:15px;color:#C4CCD8;">{{ gCaption }} · {{ gPos }}</span>
+<span onClick="{{ closeGallery }}" aria-label="Close" style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid #2A3D57;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#1A2B42;" style-active="transform:scale(0.92);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:20px 24px;">
+<span onClick="{{ gPrev }}" aria-label="Previous photo" style="width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#1A2B42;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#22324A;" style-active="transform:scale(0.92);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></span>
+<div style="position:relative;height:100%;min-height:240px;">{{ gStage }}</div>
+<span onClick="{{ gNext }}" aria-label="Next photo" style="width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#1A2B42;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#22324A;" style-active="transform:scale(0.92);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></span>
+</div>
+<div style="display:flex;gap:8px;overflow-x:auto;padding:0 24px 20px;">
+<sc-for list="{{ gThumbs }}" as="th" hint-placeholder-count="10"><img src="{{ th.src }}" alt="{{ th.alt }}" onClick="{{ th.pick }}" loading="lazy" style="flex:none;width:96px;height:68px;object-fit:cover;border-radius:10px;cursor:pointer;opacity:{{ th.op }};outline:2px solid {{ th.ring }};outline-offset:2px;transition:opacity 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="opacity:1;" style-active="transform:scale(0.95);"></sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ showAuth }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeAuthBackdrop }}" data-backdrop="1" style="position:fixed;inset:0;z-index:100;background:rgba(8,17,29,0.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px;">
+<div style="width:920px;max-width:100%;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr);background:#FFFFFF;color:#0E1B2C;border-radius:28px;overflow:auto;max-height:calc(100vh - 48px);box-shadow:0 40px 100px rgba(0,0,0,0.5);">
+<div style="background:#0E1B2C;color:#F3EEE4;padding:40px;display:flex;flex-direction:column;gap:28px;">
+<a href="#top" onClick="{{ toTopClose }}" aria-label="Beautiful Reykjavik home" style="display:flex;align-self:flex-start;transition:opacity 160ms ease;" style-hover="opacity:0.82;"><img src="assets/logo-dark-bg.svg" alt="Beautiful Reykjavik" style="height:68px;width:auto;"></a>
+<div style="display:flex;flex-direction:column;gap:10px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:32px;line-height:1.15;">Your stays in Reykjavík, in one place</span><span style="font-size:15px;color:#C4CCD8;line-height:1.55;">An account keeps your bookings, payments and messages with Arni together.</span></div>
+<div style="display:flex;flex-direction:column;gap:16px;font-size:15px;">
+<span style="display:flex;gap:12px;align-items:center;"><span style="width:36px;height:36px;flex:none;border-radius:10px;background:#1A2B42;color:#C29A4C;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path></svg></span>View and change your bookings</span>
+<span style="display:flex;gap:12px;align-items:center;"><span style="width:36px;height:36px;flex:none;border-radius:10px;background:#1A2B42;color:#C29A4C;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg></span>Save cards for faster checkout</span>
+<span style="display:flex;gap:12px;align-items:center;"><span style="width:36px;height:36px;flex:none;border-radius:10px;background:#1A2B42;color:#C29A4C;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>Message Arni directly</span>
+<span style="display:flex;gap:12px;align-items:center;"><span style="width:36px;height:36px;flex:none;border-radius:10px;background:#1A2B42;color:#C29A4C;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>Receipts and secure payments</span>
+</div>
+</div>
+<div style="position:relative;padding:40px;display:flex;flex-direction:column;gap:18px;">
+<span onClick="{{ closeAuth }}" style="position:absolute;right:20px;top:20px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#4A5566;" style-hover="background:#F1ECE3;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span>
+<div style="display:flex;background:#F1ECE3;border-radius:999px;padding:4px;align-self:flex-start;font-size:14px;font-weight:700;">
+<span onClick="{{ openLogin }}" style="padding:8px 20px;border-radius:999px;cursor:pointer;background:{{ loginTabBg }};color:{{ loginTabFg }};">Log in</span>
+<span onClick="{{ openSignup }}" style="padding:8px 20px;border-radius:999px;cursor:pointer;background:{{ signupTabBg }};color:{{ signupTabFg }};">Sign up</span>
+</div>
+<span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;">{{ authTitle }}</span>
+<sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">Full name<span style="display:flex;align-items:center;gap:10px;border:1px solid #D4CCBD;border-radius:14px;padding:0 14px;color:#6B7280;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><input onChange="{{ onName }}" placeholder="Your name" style="flex:1;border:0;outline:0;padding:14px 0;font-size:16px;background:transparent;color:#0E1B2C;"></span></label>
+</sc-if>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">Email<span style="display:flex;align-items:center;gap:10px;border:1px solid #D4CCBD;border-radius:14px;padding:0 14px;color:#6B7280;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><input onChange="{{ onEmail }}" type="email" placeholder="you@example.com" style="flex:1;border:0;outline:0;padding:14px 0;font-size:16px;background:transparent;color:#0E1B2C;"></span></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;"><span style="display:flex;justify-content:space-between;">Password<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}"><span style="font-weight:600;color:#9C7A35;text-decoration:underline;cursor:pointer;">Forgot password?</span></sc-if></span><span style="display:flex;align-items:center;gap:10px;border:1px solid #D4CCBD;border-radius:14px;padding:0 14px;color:#6B7280;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><input type="password" placeholder="••••••••" style="flex:1;border:0;outline:0;padding:14px 0;font-size:16px;background:transparent;color:#0E1B2C;"></span></label>
+<span onClick="{{ submitAuth }}" style="background:#C29A4C;color:#0E1B2C;padding:15px;border-radius:14px;font-size:16px;font-weight:700;text-align:center;cursor:pointer;" style-hover="background:#D4AE62;">{{ authCta }}</span>
+<div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#6B7280;"><span style="flex:1;height:1px;background:#ECE6DA;"></span>or<span style="flex:1;height:1px;background:#ECE6DA;"></span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<span onClick="{{ submitAuth }}" style="border:1px solid #D4CCBD;padding:12px;border-radius:14px;font-size:15px;font-weight:600;text-align:center;cursor:pointer;" style-hover="border-color:#0E1B2C;">Continue with Google</span>
+<span onClick="{{ submitAuth }}" style="border:1px solid #D4CCBD;padding:12px;border-radius:14px;font-size:15px;font-weight:600;text-align:center;cursor:pointer;" style-hover="border-color:#0E1B2C;">Continue with Apple</span>
+</div>
+<span style="font-size:13px;color:#6B7280;line-height:1.5;">Booking without an account? You can check out as a guest and create one later.</span>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { hov: null, hi: 0, gallery: false, gi: 0, season: 'winter', open: null, ci: null, co: null, g: { Adults: 2, Children: 0, Infants: 0, Pets: 0 }, beds: 'Any', price: 'Any', petsOk: false, parking: false, searched: false, chip: 'All 13', all: false, menu: false, auth: null, user: null, nameIn: '', emailIn: '' };
+  componentDidMount() {
+    this.t = setInterval(() => { if (this.state.hov) this.setState(s => ({ hi: (s.hi + 1) % 4 })); }, 1100);
+    this.k = e => { if (!this.state.gallery) return; if (e.key === 'Escape') this.setState({ gallery: false }); if (e.key === 'ArrowRight') this.step(1); if (e.key === 'ArrowLeft') this.step(-1); };
+    window.addEventListener('keydown', this.k);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const els = document.querySelectorAll('#apartments > div:first-child, #apartments [data-card], [data-reveal], #host > div, #neighbourhood > *, #seasons > *, footer > div > div');
+      this.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const el = e.target; el.style.opacity = '1'; el.style.transform = 'none'; this.io.unobserve(el); setTimeout(() => { el.style.transition = ''; el.style.transform = ''; el.style.opacity = ''; }, 900); } }), { rootMargin: '0px 0px -60px 0px' });
+      let i = 0;
+      els.forEach(el => { if (el.getBoundingClientRect().top < innerHeight) return; el.style.opacity = '0'; el.style.transform = 'translateY(14px)'; el.style.transition = 'opacity 500ms ease, transform 600ms cubic-bezier(0.23,1,0.32,1) ' + ((i++ % 4) * 60) + 'ms'; this.io.observe(el); });
+      this.rv = setTimeout(() => els.forEach(el => { if (el.style.opacity === '0') { el.style.opacity = ''; el.style.transform = ''; } }), 2500);
+    }
+  }
+  componentWillUnmount() { clearTimeout(this.rv); if (this.io) this.io.disconnect(); clearInterval(this.t); window.removeEventListener('keydown', this.k); document.body.style.overflow = ''; }
+  step(d) { const n = this.gal().length; this.setState(s => ({ gi: (s.gi + d + n) % n })); }
+  gal() {
+    return [['250-bedroom', 'Bedroom, apartment 250'], ['251-living', 'Living room, apartment 251'], ['250-kitchen', 'Kitchen, apartment 250'], ['entrance-hall', 'Mosaic entrance hall'], ['building-facade', 'Laugavegur 15'], ['street', 'Laugavegur street'], ['entrance-door', 'The entrance'], ['coffee-lounge', 'Guest coffee lounge'], ['lounge', 'Lounge by the elevator'], ['laundry', 'Guest laundry'],
+      ...['250','251','253','255','351','352','353','451','453','454'].flatMap(n => [[n + '-cover', 'Apartment ' + n], [n + '-03', 'Apartment ' + n], [n + '-04', 'Apartment ' + n]])].map(([f, alt]) => ({ src: 'assets/photos/' + f + '.jpeg', alt }));
+  }
+  icon(paths, size = 18) {
+    return React.createElement('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.75, strokeLinecap: 'round', strokeLinejoin: 'round', dangerouslySetInnerHTML: { __html: paths } });
+  }
+  cols(list) { const per = [5, 5.5, 9], dir = ['brUp', 'brDown', 'brUp']; return [0, 1, 2].map(c => { let base = list.filter((_, i) => i % 3 === c); if (!base.length) base = list.slice(0, 2); let it = base; while (it.length && it.length < 6) it = it.concat(base); return { anim: dir[c] + ' ' + Math.round(it.length * per[c]) + 's linear infinite', items: it.concat(it) }; }); }
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const tog = k => () => set({ open: s.open === k ? null : k, menu: false });
+    const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const booked = new Set([1205,1206,1207,1219,1220,1224,1225,1231,101,102,110,111,117]);
+    const keyOf = (m, d) => (m + 1) * 100 + d, ord = k => (k < 500 ? 10000 : 0) + k;
+    const fmt = k => k == null ? 'Add dates' : MN[Math.floor(k / 100) - 1].slice(0, 3) + ' ' + (k % 100);
+    const toDate = k => new Date(2026 + (k < 500 ? 1 : 0), Math.floor(k / 100) - 1, k % 100);
+    const months = [[2026, 11], [2027, 0]].map(([y, m]) => {
+      const off = (new Date(y, m, 1).getDay() + 6) % 7, n = new Date(y, m + 1, 0).getDate();
+      const cells = Array.from({ length: off }, () => ({ label: '', bg: 'transparent', fg: '#0E1B2C', deco: 'none', cur: 'default', radius: '0', pick: null }));
+      for (let d = 1; d <= n; d++) {
+        const k = keyOf(m, d), b = booked.has(k), isEnd = k === s.ci || k === s.co;
+        const inRange = s.ci && s.co && ord(k) > ord(s.ci) && ord(k) < ord(s.co);
+        cells.push({ label: d, deco: b ? 'line-through' : 'none', cur: b ? 'not-allowed' : 'pointer',
+          bg: isEnd ? '#0E1B2C' : inRange ? '#EFE9DE' : 'transparent', fg: isEnd ? '#F3EEE4' : b ? '#B5AFA5' : '#0E1B2C',
+          radius: isEnd ? '50%' : '0',
+          pick: b ? null : () => { if (!s.ci || s.co || ord(k) <= ord(s.ci)) set({ ci: k, co: null }); else set({ co: k }); } });
+      }
+      return { title: MN[m] + ' ' + y, cells };
+    });
+    const subs = { Adults: 'Age 13+', Children: 'Ages 2–12', Infants: 'Under 2', Pets: 'Ask Arni before booking' };
+    const guestRows = Object.keys(s.g).map(name => ({ name, sub: subs[name], n: s.g[name], decOp: s.g[name] > (name === 'Adults' ? 1 : 0) ? 1 : 0.3,
+      inc: () => set({ g: { ...s.g, [name]: s.g[name] + 1 } }),
+      dec: () => set({ g: { ...s.g, [name]: Math.max(name === 'Adults' ? 1 : 0, s.g[name] - 1) } }) }));
+    const ppl = s.g.Adults + s.g.Children;
+    const guestLabel = ppl + ' guest' + (ppl > 1 ? 's' : '') + (s.g.Infants ? ', ' + s.g.Infants + ' infant' : '') + (s.g.Pets ? ', ' + s.g.Pets + ' pet' : '');
+    const pill = (cur, v, key) => ({ label: v, bg: cur === v ? '#0E1B2C' : 'transparent', fg: cur === v ? '#F3EEE4' : '#0E1B2C', pick: () => set({ [key]: v }) });
+    const fl = [s.price !== 'Any' ? s.price : null, s.petsOk ? 'Pets' : null, s.parking ? 'Parking' : null].filter(Boolean);
+    const segBg = k => s.open === k ? '#F1ECE3' : 'transparent';
+    const nights = s.ci && s.co ? Math.round((toDate(s.co) - toDate(s.ci)) / 864e5) : 0;
+    const COV = { '250': 'assets/photos/250-cover.jpeg', '251': 'assets/photos/251-cover.jpeg', '252': 'assets/photos/252-cover.jpeg', '253': 'assets/photos/253-cover.jpeg', '254': 'assets/photos/254-cover.jpeg', '255': 'assets/photos/255-cover.jpeg', '350': 'assets/photos/350-cover.jpeg', '351': 'assets/photos/351-cover.jpeg', '352': 'assets/photos/352-cover.jpeg', '353': 'assets/photos/353-cover.jpeg', '451': 'assets/photos/451-cover.jpeg', '453': 'assets/photos/453-cover.jpeg', '454': 'assets/photos/454-cover.jpeg' };
+    const L = [
+      ['250', '1 Bedroom', 5, 4.97, 855], ['251', '1 Bedroom', 5, 4.94, 752], ['252', 'Studio', 2, 4.92, null],
+      ['253', '1 Bedroom', 5, 4.96, 618], ['254', 'XL Studio', 3, 4.97, null], ['255', '1 Bedroom', 5, 4.98, 746],
+      ['350', 'Studio', 2, 4.96, 781], ['351', 'Studio', 3, 4.97, 803], ['352', '1 Bedroom', 3, 4.93, 722],
+      ['353', '3 Bedroom', 9, 4.96, 617], ['451', '2 Bedroom', 5, 4.98, null], ['453', '2 Bedroom', 7, 4.95, 761], ['454', 'Studio', 2, 4.90, 918],
+    ].map(([num, type, sleeps, r, c]) => ({ num, type, sleeps, rating: r.toFixed(2), countLabel: c ? '(' + c + ')' : '', beds: type.includes('Studio') ? 0 : parseInt(type) })).map(a => {
+      const active = s.hov === a.num, idx = active ? s.hi : 0;
+      const srcs = ['cover', '03', '04', '05'].map(x => 'assets/photos/' + a.num + '-' + x + '.jpeg');
+      return { ...a, shadow: active ? '0 14px 34px rgba(14,27,44,0.18)' : '0 0 0 rgba(0,0,0,0)',
+        slides: srcs.map((src, i) => ({ src, n: i + 1, op: i === idx ? 1 : 0, sc: active && i === idx ? 1.04 : 1 })),
+        dots: srcs.map((_, i) => ({ w: i === idx ? '16px' : '6px', bg: i === idx ? '#FFFFFF' : 'rgba(255,255,255,0.55)' })),
+        enter: () => set({ hov: a.num, hi: 1 }), leave: () => set({ hov: null, hi: 0 }), go: () => { location.href = 'apartment.html' + (s.ci ? '?ci=' + s.ci + (s.co ? '&co=' + s.co : '') + '&g=' + ppl : '') + '#' + a.num; } };
+    });
+    const sizeMatch = a => s.beds === 'Any' || (s.beds === 'Studio' ? a.beds === 0 : s.beds === '3' ? a.beds >= 3 : a.beds === parseInt(s.beds));
+    const avail = L.filter(a => a.sleeps >= ppl && sizeMatch(a)).length;
+    const chipDefs = { 'All 13': () => true, 'Studios': a => a.beds === 0, '1 bedroom': a => a.beds === 1, '2–3 bedrooms': a => a.beds >= 2, 'Sleeps 5+': a => a.sleeps >= 5 };
+    const chips = Object.keys(chipDefs).map(label => { const on = s.chip === label; return { label, bg: on ? '#0E1B2C' : 'transparent', fg: on ? '#F3EEE4' : '#0E1B2C', bd: on ? '#0E1B2C' : '#D4CCBD', pick: () => set({ chip: label }) }; });
+    const filtered = L.filter(chipDefs[s.chip]);
+    const w = s.season === 'winter';
+    const tips = w ? [
+      { id: 'w1', src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Aurora%20over%20the%20Sun%20Voyager%2C%20Central%20Reykjavik%20(37291306216).jpg?width=1200', credit: 'Aurora over the Sun Voyager', when: 'Sep – Mar', img: 'northern lights', title: 'Northern lights', note: 'Best from September to March. Tour companies are listed in the guidebook.' },
+      { id: 'w2', src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Iceland%20Blue%20Lagoon.jpg?width=1200', credit: 'Photo: Sarah1990', when: 'All year', img: 'geothermal pool', title: 'Geothermal pools', note: 'Warm outdoor pools are open all winter, a short walk or drive away.' },
+      { id: 'w3', src: 'https://commons.wikimedia.org/wiki/Special:FilePath/A%20Snowy%20Morning%20at%20Laugevegur%20and%20Snorrabraut%20(26261760201).jpg?width=1200', credit: 'Snowy Laugavegur', when: 'Nov – Feb', img: 'café at night', title: 'Short days, cosy evenings', note: 'Arni’s picks for breakfast, lunch, dinner and bars nearby.' },
+    ] : [
+      { id: 's1', src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Midnight%20Sun%20(19201265575).jpg?width=1200', credit: 'Photo: Hafsteinn Robertsson', when: 'June', img: 'midnight sun', title: 'Midnight sun', note: 'Close to 21 hours of daylight in June, right outside on Laugavegur.' },
+      { id: 's2', src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Humpback%20whale%2C%20Faxafl%C3%B3i%20Bay%2C%20Iceland%2C%2020230507%201022%205573.jpg?width=1200', credit: 'Faxaflói Bay', when: 'Apr – Oct', img: 'whale watching', title: 'Whale watching', note: 'Boats leave from the Old Harbour, a short walk downhill.' },
+      { id: 's3', src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gullfoss%2C%20Su%C3%B0urland%2C%20Islandia%2C%202014-08-16%2C%20DD%20119.JPG?width=1200', credit: 'Gullfoss · Photo: Diego Delso', when: 'May – Sep', img: 'Golden Circle', title: 'Day trips', note: 'Car rental and tour companies are in the guidebook.' },
+    ];
+    const on = { bg: '#0E1B2C', fg: '#F3EEE4' }, off = { bg: 'transparent', fg: '#4A5566' };
+    const ic = this.icon.bind(this);
+    const P = { calendar: '<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>', heart: '<path d="M12 20.25c-.3 0-.6-.1-.84-.28C8.4 17.9 3 13.7 3 8.9 3 6.2 5.1 4 7.7 4c1.7 0 3.2.9 4.3 2.3C13.1 4.9 14.6 4 16.3 4 18.9 4 21 6.2 21 8.9c0 4.8-5.4 9-8.16 11.07-.24.18-.54.28-.84.28Z"/>', message: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>', card: '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>', user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' };
+    const userIcon = this.icon('<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>', 16);
+    const isSignup = s.auth === 'signup';
+    const openAuth = m => () => set({ auth: m, menu: false, open: null });
+    const G = this.gal(), gi = s.gi % G.length;
+    const toTop = e => { if (e) e.preventDefault(); document.scrollingElement.scrollTo({ top: 0, behavior: 'smooth' }); };
+    document.body.style.overflow = s.gallery ? 'hidden' : '';
+    return {
+      toTop, toTopClose: e => { set({ gallery: false, auth: null }); toTop(e); },
+      galleryCount: G.length, showGallery: s.gallery,
+      openGallery: () => set({ gallery: true, gi: 0, menu: false, open: null }), closeGallery: () => set({ gallery: false }),
+      gPrev: () => this.step(-1), gNext: () => this.step(1), gCaption: G[gi].alt, gPos: (gi + 1) + ' / ' + G.length,
+      gStage: React.createElement('img', { key: G[gi].src, src: G[gi].src, alt: G[gi].alt, style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', animation: 'gIn 260ms cubic-bezier(0.23,1,0.32,1)' } }),
+      gThumbs: G.map((p, i) => ({ ...p, op: i === gi ? 1 : 0.5, ring: i === gi ? '#C29A4C' : 'transparent', pick: () => set({ gi: i }) })),
+      openIn: tog('dates'), openOut: tog('dates'), openGuests: tog('guests'), openBeds: tog('beds'), openFilters: tog('filters'),
+      segInBg: s.open === 'dates' && !s.ci ? '#F1ECE3' : 'transparent', segOutBg: s.open === 'dates' && s.ci ? '#F1ECE3' : 'transparent',
+      segGuestsBg: segBg('guests'), segBedsBg: segBg('beds'), segFiltersBg: segBg('filters'),
+      showDates: s.open === 'dates', showGuests: s.open === 'guests', showBeds: s.open === 'beds', showFilters: s.open === 'filters',
+      inLabel: fmt(s.ci), outLabel: fmt(s.co), guestLabel, bedLabel: s.beds === 'Any' ? 'Any' : s.beds === 'Studio' ? 'Studio' : s.beds + (s.beds === '3' ? '' : '') + ' bedroom' + (s.beds === '1' ? '' : 's'), filterLabel: fl.length ? fl.join(' · ') : 'Price · Pets · Parking',
+      dateHint: !s.ci ? 'Select check-in date' : !s.co ? 'Select check-out date' : nights + ' nights · ' + fmt(s.ci) + ' – ' + fmt(s.co),
+      months, guestRows,
+      bedOpts: ['Any', 'Studio', '1', '2', '3'].map(v => ({ ...pill(s.beds, v, 'beds'), label: v === 'Any' || v === 'Studio' ? v : v + ' bed' })),
+      priceOpts: ['Any', 'Under $150', '$150–250', '$250+'].map(v => pill(s.price, v, 'price')),
+      toggles: [['Pets allowed', 'petsOk'], ['Parking nearby', 'parking']].map(([label, k]) => ({ label, track: s[k] ? '#C29A4C' : '#D4CCBD', x: s[k] ? '20px' : '0px', flip: () => set({ [k]: !s[k] }) })),
+      close: () => set({ open: null }), clearDates: () => set({ ci: null, co: null }),
+      doSearch: () => set({ open: null, searched: true }), searched: s.searched,
+      resultText: avail + ' of 13 apartments fit' + (nights ? ' · ' + fmt(s.ci) + ' – ' + fmt(s.co) : '') + ' · ' + guestLabel,
+      toReviews: () => { const el = document.querySelector('[data-reviews="home"]'); if (el) { const sc = document.scrollingElement; sc.scrollTo({ top: el.getBoundingClientRect().top + sc.scrollTop - 90, behavior: 'smooth' }); } },
+      chips, apts: s.all ? filtered : filtered.slice(0, 8),
+      canShowMore: filtered.length > 8, moreLabel: s.all ? 'Show fewer' : 'Show all ' + filtered.length + ' apartments', showAll: () => set({ all: !s.all }),
+      reviews: (this._rv = [
+        { name: 'Chun Kit', initial: 'C', from: '3 years on Airbnb', apt: '250', when: '1 week ago', text: 'We had a wonderful stay at this Airbnb in Reykjavík! The apartment was beautiful, spacious, and very comfortable. We especially loved the large bathroom and the beautiful lighting, which made the whole place feel warm and cozy.' },
+        { name: 'Michael', initial: 'M', from: 'New York, New York', apt: '250', when: '1 week ago', text: 'This is my second time at Arni\u2019s, and I\u2019m already looking forward to a third! Exactly as described and super easy to find. The church, rainbow street, bookstore bar where they play live music every night.. all mere minutes away!' },
+        { name: 'Mally', initial: 'M', from: 'Ponchatoula, Louisiana', apt: '351', when: '1 week ago', text: 'Our flight arrived at 6:15 am and checkin was 2. He graciously had our unit ready for us (and at no additional charge) We\u2019ve never had another host offer us this and after a long flight from the U.S. it was so much appreciated. Arni gave us some great recommendations for restaurants and the ease of being able to get our laundry done (at no cost) before we left was incredible.' },
+        { name: 'Agata', initial: 'A', from: 'New York, New York', apt: '255', when: '2 weeks ago', text: 'The place was absolutely gorgeous! Perfect location, walkable to the best cafes & shops. Decor and furniture very tasteful and beautiful. Spotless clean, comfortable, great bathroom and kitchen. Highly recommended!' },
+        { name: 'Herb', initial: 'H', from: 'Newmarket, Canada', apt: '451', when: '1 week ago', text: 'Being in the heart of the old town and in a pedestrian zone gave us access to everything we needed, and it was close to all the venues at the Airwaves music festival. Quite frankly one of the very best Airbnb\u2019s that my friends and I have ever stayed in.' },
+        { name: 'Xinyan', initial: 'X', from: 'Group trip', apt: '353', when: 'October 2026', text: 'Arni\u2019s space is very spacious, clean and well-equipped - more than enough for our group of 8. The location is right at the center of Reykjavik, so some street noise may be expected but nothing unmanageable with ear plugs. Thanks Arni and team for the helpful guides and assisting us with parking.' },
+        { name: 'Arron', initial: 'A', from: 'Lawrence, Kansas', apt: '351', when: '2 weeks ago', text: 'P.s we were there Halloween night which was very noisy with the windows open. The second we closed them, dead silence. Great sound proofing from street noise, so don\u2019t let that be a worry.' },
+        { name: 'Erin', initial: 'E', from: 'via Airbnb', apt: '255', when: 'Recent', text: 'This was such a great time in the city. This apartment is perfect to see all the sites and visit all the shops. Easy in/out and fantastic host! Arni was wonderful and made sure our first trip to Iceland won\u2019t be our last!' },
+        { name: 'Kristina', initial: 'K', from: 'Sitka, Alaska', apt: '451', when: '3 weeks ago', text: 'Great stay in Reykjavik! Amazing location in the city center, very responsive host, and spacious and comfortable apartment. The laundry machines and tea/coffee in the lobby were a very nice touch! Would definitely stay here again.' },
+      ].map(r => ({ ...r }))),
+      reviewCols: this.cols(this._rv),
+      guide: [
+        { name: 'Laugavegur', kind: 'Shops, cafés and bars outside the door', dist: 'Main street', img: 'assets/photos/street.jpeg' },
+        { name: 'The entrance', kind: 'Mosaic arcade at number 15', dist: 'Laugavegur 15', img: 'assets/photos/entrance-door.jpeg' },
+        { name: 'Guest coffee lounge', kind: 'Coffee and tea for guests', dist: 'In the building', img: 'assets/photos/coffee-lounge.jpeg' },
+        { name: 'Lounge and laundry', kind: 'Board games by the elevator, guest washers and dryers', dist: 'In the building', img: 'assets/photos/lounge.jpeg' },
+      ],
+      guideTopics: ['How to find us', 'Keflavík Airport', 'Breakfast places', 'Lunch places', 'Dinner places', 'Bars', 'Car rental', 'Tour companies', 'Fun things to do', 'Parking'],
+      tips,
+      wBg: w ? on.bg : off.bg, wFg: w ? on.fg : off.fg, sBg: w ? off.bg : on.bg, sFg: w ? off.fg : on.fg,
+      setWinter: () => set({ season: 'winter' }), setSummer: () => set({ season: 'summer' }),
+      toggleMenu: () => set({ menu: !s.menu, open: null }), closeMenu: () => set({ menu: false }), showMenu: s.menu,
+      loggedIn: !!s.user, loggedOut: !s.user,
+      avatarBg: s.user ? '#C29A4C' : '#4A5566', avatarContent: s.user ? s.user.name[0].toUpperCase() : React.createElement('span', { style: { color: '#F3EEE4', display: 'flex' } }, userIcon),
+      userName: s.user ? s.user.name : '', userEmail: s.user ? s.user.email : '', userInitial: s.user ? s.user.name[0].toUpperCase() : '',
+      acctItems: [['My trips', 'calendar'], ['Saved apartments', 'heart'], ['Messages', 'message'], ['Payment methods', 'card'], ['Account settings', 'user']].map(([label, k]) => ({ label, icon: ic(P[k], 18) })),
+      logout: () => set({ user: null, menu: false }),
+      openLogin: openAuth('login'), openSignup: openAuth('signup'),
+      showAuth: !!s.auth, isSignup, isLogin: !isSignup,
+      closeAuth: () => set({ auth: null }), closeAuthBackdrop: e => { if (e.target === e.currentTarget) set({ auth: null }); },
+      loginTabBg: isSignup ? 'transparent' : '#FFFFFF', loginTabFg: isSignup ? '#4A5566' : '#0E1B2C',
+      signupTabBg: isSignup ? '#FFFFFF' : 'transparent', signupTabFg: isSignup ? '#0E1B2C' : '#4A5566',
+      authTitle: isSignup ? 'Create your account' : 'Welcome back', authCta: isSignup ? 'Create account' : 'Log in',
+      onName: e => set({ nameIn: e.target.value }), onEmail: e => set({ emailIn: e.target.value }),
+      submitAuth: () => { const email = s.emailIn || 'guest@example.com'; const name = s.nameIn || email.split('@')[0]; set({ user: { name: name.charAt(0).toUpperCase() + name.slice(1), email }, auth: null }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

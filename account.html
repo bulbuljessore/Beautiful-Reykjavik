@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Marcellus';src:url('fonts/Marcellus-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Karla';src:url('fonts/Karla-Variable.ttf') format('truetype');font-weight:200 800;font-display:swap}body{margin:0;background:#0E1B2C;color:#F3EEE4;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}a{color:#C29A4C;text-decoration:none;transition:color 160ms ease}a:hover{color:#F3EEE4}*{box-sizing:border-box}input,select{font-family:'Karla',sans-serif}@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@media (max-width:900px){[data-acct]{grid-template-columns:minmax(0,1fr)!important}[data-side]{flex-direction:row!important;overflow-x:auto;position:static!important;padding-bottom:8px}[data-side]>*{flex:none}}@media (prefers-reduced-motion:reduce){*{transition-duration:0ms!important;animation-duration:0ms!important}}</style>
+</helmet>
+<div id="top" style="min-height:100vh;background:#0E1B2C;">
+<dc-import name="SiteHeader" active="" hint-size="100%,78px"></dc-import>
+
+<sc-if value="{{ gated }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:560px;margin:0 auto;padding:96px 24px 140px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;">
+<span style="width:64px;height:64px;border-radius:50%;background:#1A2B42;color:#C29A4C;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+<h1 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:44px;line-height:1.05;">Log in to see your account</h1>
+<p style="margin:0;font-size:18px;color:#C4CCD8;line-height:1.6;">Your trips, saved apartments and payment methods are kept here.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding-top:6px;"><a href="login.html?next=account.html#login" style="background:#C29A4C;color:#0E1B2C;padding:14px 28px;border-radius:999px;font-size:16px;font-weight:700;" style-hover="background:#D4AE62;color:#0E1B2C;">Log in</a><a href="login.html#signup" style="border:1px solid #3A4E6A;color:#F3EEE4;padding:14px 28px;border-radius:999px;font-size:16px;font-weight:700;" style-hover="border-color:#C29A4C;color:#F3EEE4;">Sign up</a></div>
+</section>
+</sc-if>
+
+<sc-if value="{{ authed }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:1280px;margin:0 auto;padding:48px 24px 56px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+<span style="width:88px;height:88px;border-radius:50%;background:#C29A4C;color:#0E1B2C;display:flex;align-items:center;justify-content:center;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:40px;">{{ initial }}</span>
+<div style="display:flex;flex-direction:column;gap:6px;min-width:0;"><span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Account</span><h1 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(34px,4.4vw,52px);line-height:1.05;">{{ userName }}</h1><span style="font-size:16px;color:#C4CCD8;">{{ userEmail }} · Member since {{ since }}</span></div>
+</section>
+
+<section style="background:#FFFFFF;color:#0E1B2C;padding:56px max(24px,calc((100% - 1232px) / 2)) 96px;min-height:640px;">
+<div data-acct="1" style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:64px;align-items:start;">
+<nav data-side="1" style="position:sticky;top:96px;display:flex;flex-direction:column;gap:4px;">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6"><span onClick="{{ t.go }}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;background:{{ t.bg }};color:{{ t.fg }};transition:background 160ms ease,color 160ms ease;" style-hover="background:#F3EEE4;color:#0E1B2C;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" dangerouslySetInnerHTML="{{ t.svg }}"></svg>{{ t.label }}</span></sc-for>
+<span onClick="{{ logout }}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;color:#6B7280;margin-top:8px;transition:background 160ms ease,color 160ms ease;" style-hover="background:#F3EEE4;color:#0E1B2C;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>Log out</span>
+</nav>
+
+<div style="min-width:0;display:flex;flex-direction:column;gap:32px;animation:fadeUp 300ms cubic-bezier(0.23,1,0.32,1);">
+
+<sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:38px;">Hello, {{ firstName }}</h2>
+<sc-if value="{{ hasNext }}" hint-placeholder-val="{{ false }}"><div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:24px;background:#0E1B2C;color:#F3EEE4;border-radius:24px;overflow:hidden;align-items:stretch;"><img loading="lazy" src="{{ next.img }}" alt="" style="width:100%;height:100%;min-height:150px;object-fit:cover;"><div style="padding:24px 24px 24px 0;display:flex;flex-direction:column;gap:6px;justify-content:center;"><span style="font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Next trip</span><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;">{{ next.title }}</span><span style="font-size:15px;color:#C4CCD8;">{{ next.dates }} · {{ next.guests }}</span><span onClick="{{ toTrips }}" style="font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:4px;cursor:pointer;color:#F3EEE4;padding-top:4px;" style-hover="color:#C29A4C;">View trip</span></div></div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;">
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="6"><div onClick="{{ c.go }}" style="display:flex;flex-direction:column;gap:28px;padding:26px;border:1px solid #D4CCBD;border-radius:22px;cursor:pointer;transition:border-color 200ms ease,transform 220ms cubic-bezier(0.23,1,0.32,1),box-shadow 220ms ease;" style-hover="border-color:#0E1B2C;transform:translateY(-3px);box-shadow:0 14px 34px rgba(14,27,44,0.1);"><span style="width:46px;height:46px;border-radius:14px;background:#0E1B2C;color:#C29A4C;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" dangerouslySetInnerHTML="{{ c.svg }}"></svg></span><div style="display:flex;flex-direction:column;gap:4px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:23px;">{{ c.t }}</span><span style="font-size:14px;color:#4A5566;line-height:1.5;">{{ c.d }}</span></div></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTrips }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:38px;">Trips</h2>
+<div style="display:flex;background:#F1ECE3;border-radius:999px;padding:4px;align-self:flex-start;font-size:14px;font-weight:700;"><span onClick="{{ showUp }}" style="padding:9px 22px;border-radius:999px;cursor:pointer;background:{{ upBg }};color:{{ upFg }};transition:background 200ms ease,color 200ms ease;">Upcoming · {{ upCount }}</span><span onClick="{{ showPast }}" style="padding:9px 22px;border-radius:999px;cursor:pointer;background:{{ pastBg }};color:{{ pastFg }};transition:background 200ms ease,color 200ms ease;">Past · {{ pastCount }}</span></div>
+<sc-if value="{{ noTrips }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;padding:40px;border-radius:24px;background:#F3EEE4;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;">{{ emptyTitle }}</span><span style="font-size:16px;color:#4A5566;line-height:1.55;max-width:460px;">{{ emptyText }}</span><a href="apartments.html" style="background:#0E1B2C;color:#F3EEE4;padding:13px 26px;border-radius:999px;font-size:15px;font-weight:700;" style-hover="background:#1A2B42;color:#F3EEE4;">Find an apartment</a></div></sc-if>
+<div style="display:flex;flex-direction:column;gap:16px;">
+<sc-for list="{{ trips }}" as="t" hint-placeholder-count="1"><div style="display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr);border:1px solid #D4CCBD;border-radius:24px;overflow:hidden;">
+<img loading="lazy" src="{{ t.img }}" alt="" style="width:100%;height:100%;min-height:190px;object-fit:cover;">
+<div style="padding:24px;display:flex;flex-direction:column;gap:12px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;"><div style="display:flex;flex-direction:column;gap:4px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:26px;">{{ t.title }}</span><span style="font-size:15px;color:#4A5566;">{{ t.dates }} · {{ t.guests }}</span></div><span style="font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;background:{{ t.badgeBg }};color:{{ t.badgeFg }};">{{ t.status }}</span></div>
+<div style="display:flex;gap:28px;flex-wrap:wrap;font-size:14px;color:#4A5566;"><span>Reference <b style="color:#0E1B2C;">{{ t.id }}</b></span><span>Total <b style="color:#0E1B2C;">{{ t.total }}</b></span><span>Paid by <b style="color:#0E1B2C;">{{ t.method }}</b></span></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:4px;align-items:center;">
+<a href="{{ t.href }}" style="border:1px solid #0E1B2C;color:#0E1B2C;padding:10px 20px;border-radius:999px;font-size:14px;font-weight:700;transition:background 160ms ease,color 160ms ease;" style-hover="background:#0E1B2C;color:#F3EEE4;">View apartment</a>
+<sc-if value="{{ t.canCancel }}" hint-placeholder-val="{{ false }}"><span onClick="{{ t.askCancel }}" style="font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:4px;cursor:pointer;color:#4A5566;" style-hover="color:#B4483A;">Cancel booking</span></sc-if>
+</div>
+<sc-if value="{{ t.confirming }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:#FBEDEA;font-size:14px;color:#7A2E24;"><span style="font-weight:600;">Cancel this booking?</span><span onClick="{{ t.doCancel }}" style="background:#B4483A;color:#FFFFFF;padding:8px 16px;border-radius:999px;font-weight:700;cursor:pointer;">Yes, cancel</span><span onClick="{{ t.noCancel }}" style="font-weight:700;text-decoration:underline;cursor:pointer;">Keep it</span></div></sc-if>
+</div></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSaved }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:38px;">Saved apartments</h2>
+<sc-if value="{{ noSaved }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;padding:40px;border-radius:24px;background:#F3EEE4;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;">Nothing saved yet</span><span style="font-size:16px;color:#4A5566;line-height:1.55;max-width:460px;">Tap the heart on any apartment to keep it here.</span><a href="apartments.html" style="background:#0E1B2C;color:#F3EEE4;padding:13px 26px;border-radius:999px;font-size:15px;font-weight:700;" style-hover="background:#1A2B42;color:#F3EEE4;">Browse apartments</a></div></sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:24px 18px;">
+<sc-for list="{{ saved }}" as="a" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:8px;">
+<div style="position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#EEE9E0;"><a href="{{ a.href }}"><img loading="lazy" src="{{ a.img }}" alt="Apartment {{ a.num }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></a><span onClick="{{ a.remove }}" aria-label="Remove" style="position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);color:#B4483A;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1);" style-active="transform:scale(0.88);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.25c-.3 0-.6-.1-.84-.28C8.4 17.9 3 13.7 3 8.9 3 6.2 5.1 4 7.7 4c1.7 0 3.2.9 4.3 2.3C13.1 4.9 14.6 4 16.3 4 18.9 4 21 6.2 21 8.9c0 4.8-5.4 9-8.16 11.07-.24.18-.54.28-.84.28Z"></path></svg></span></div>
+<span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:20px;">Apartment {{ a.num }}</span><span style="font-size:14px;color:#4A5566;">{{ a.line }}</span></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPayments }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:38px;">Payments</h2>
+<div style="display:flex;flex-direction:column;gap:14px;">
+<span style="font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#9C7A35;font-weight:700;">Payment methods</span>
+<sc-for list="{{ cardList }}" as="c" hint-placeholder-count="1"><div style="display:flex;align-items:center;gap:16px;padding:18px 20px;border:1px solid #D4CCBD;border-radius:18px;"><span style="width:52px;height:36px;border-radius:8px;background:#0E1B2C;color:#F3EEE4;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">{{ c.brand }}</span><div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;"><span style="font-size:16px;font-weight:700;">•••• {{ c.last4 }}</span><span style="font-size:13px;color:#4A5566;">{{ c.name }} · Expires {{ c.exp }}</span></div><sc-if value="{{ c.isDefault }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:#F3EEE4;">Default</span></sc-if><sc-if value="{{ c.notDefault }}" hint-placeholder-val="{{ true }}"><span onClick="{{ c.makeDefault }}" style="font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;" style-hover="color:#9C7A35;">Make default</span></sc-if><span onClick="{{ c.remove }}" style="font-size:13px;font-weight:700;color:#6B7280;text-decoration:underline;text-underline-offset:3px;cursor:pointer;" style-hover="color:#B4483A;">Remove</span></div></sc-for>
+<sc-if value="{{ noCards }}" hint-placeholder-val="{{ true }}"><span style="font-size:15px;color:#6B7280;">No saved cards.</span></sc-if>
+<sc-if value="{{ addingCard }}" hint-placeholder-val="{{ false }}"><div style="animation:fadeUp 260ms cubic-bezier(0.23,1,0.32,1);display:flex;flex-direction:column;gap:12px;padding:22px;border:1px solid #0E1B2C;border-radius:18px;">
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">Card number<input value="{{ cNum }}" onInput="{{ onCNum }}" inputmode="numeric" placeholder="1234 5678 9012 3456" style="border:1px solid #D4CCBD;border-radius:12px;padding:13px;font-size:16px;outline:0;"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">Name on card<input value="{{ cName }}" onInput="{{ onCName }}" placeholder="Name" style="border:1px solid #D4CCBD;border-radius:12px;padding:13px;font-size:16px;outline:0;"></label>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">Expiry<input value="{{ cExp }}" onInput="{{ onCExp }}" placeholder="MM/YY" style="border:1px solid #D4CCBD;border-radius:12px;padding:13px;font-size:16px;outline:0;"></label><label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">CVC<input value="{{ cCvc }}" onInput="{{ onCCvc }}" placeholder="123" style="border:1px solid #D4CCBD;border-radius:12px;padding:13px;font-size:16px;outline:0;"></label></div>
+<sc-if value="{{ cardErr }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:#B4483A;font-weight:600;">{{ cardErr }}</span></sc-if>
+<div style="display:flex;gap:12px;align-items:center;"><span onClick="{{ saveCard }}" style="background:#0E1B2C;color:#F3EEE4;padding:12px 24px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;" style-hover="background:#1A2B42;">Save card</span><span onClick="{{ cancelCard }}" style="font-size:15px;font-weight:700;text-decoration:underline;cursor:pointer;color:#4A5566;">Cancel</span></div></div></sc-if>
+<span onClick="{{ addCard }}" style="align-self:flex-start;display:flex;align-items:center;gap:8px;border:1px solid #0E1B2C;padding:12px 22px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;transition:background 160ms ease,color 160ms ease;" style-hover="background:#0E1B2C;color:#F3EEE4;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Add a card</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding-top:6px;">
+<div style="padding:18px 20px;border:1px solid #D4CCBD;border-radius:18px;display:flex;flex-direction:column;gap:4px;"><span style="display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;"><span style="color:#9C7A35;display:flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg></span>PayPal</span><span style="font-size:14px;color:#4A5566;line-height:1.5;">Available at checkout. You sign in to PayPal when you pay.</span></div>
+<div style="padding:18px 20px;border:1px solid #D4CCBD;border-radius:18px;display:flex;flex-direction:column;gap:4px;"><span style="display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;"><span style="color:#9C7A35;display:flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"></line><line x1="6" x2="6" y1="18" y2="11"></line><line x1="10" x2="10" y1="18" y2="11"></line><line x1="14" x2="14" y1="18" y2="11"></line><line x1="18" x2="18" y1="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg></span>Bank transfer</span><span style="font-size:14px;color:#4A5566;line-height:1.5;">Available at checkout. Transfer details are shown after you book.</span></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #ECE6DA;padding-top:28px;">
+<span style="font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#9C7A35;font-weight:700;margin-bottom:8px;">Payment history</span>
+<sc-if value="{{ noHistory }}" hint-placeholder-val="{{ true }}"><span style="font-size:15px;color:#6B7280;">Payments for your bookings will appear here.</span></sc-if>
+<sc-for list="{{ history }}" as="h" hint-placeholder-count="1"><div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #ECE6DA;flex-wrap:wrap;"><div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:16px;font-weight:600;">{{ h.t }}</span><span style="font-size:13px;color:#6B7280;">{{ h.sub }}</span></div><div style="display:flex;align-items:center;gap:14px;"><span style="font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:{{ h.bg }};color:{{ h.fg }};">{{ h.state }}</span><span style="font-size:16px;font-weight:700;">{{ h.amount }}</span></div></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPersonal }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:38px;">Personal info</h2>
+<div style="display:flex;flex-direction:column;max-width:720px;">
+<sc-for list="{{ fields }}" as="f" hint-placeholder-count="4"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:22px 0;border-bottom:1px solid #ECE6DA;">
+<div style="display:flex;flex-direction:column;gap:6px;flex:1;min-width:0;"><span style="font-size:17px;font-weight:700;">{{ f.label }}</span>
+<sc-if value="{{ f.view }}" hint-placeholder-val="{{ true }}"><span style="font-size:15px;color:{{ f.color }};">{{ f.value }}</span></sc-if>
+<sc-if value="{{ f.edit }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:12px;padding-top:4px;max-width:420px;"><input value="{{ f.draft }}" onInput="{{ f.onDraft }}" placeholder="{{ f.label }}" style="border:1px solid #0E1B2C;border-radius:12px;padding:13px;font-size:16px;outline:0;"><div style="display:flex;gap:12px;align-items:center;"><span onClick="{{ f.save }}" style="background:#0E1B2C;color:#F3EEE4;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;" style-hover="background:#1A2B42;">Save</span><span onClick="{{ f.cancel }}" style="font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer;color:#4A5566;">Cancel</span></div></div></sc-if></div>
+<sc-if value="{{ f.view }}" hint-placeholder-val="{{ true }}"><span onClick="{{ f.start }}" style="font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:4px;cursor:pointer;" style-hover="color:#9C7A35;">{{ f.action }}</span></sc-if></div></sc-for>
+</div>
+<sc-if value="{{ savedFlash }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:600;color:#2F6B4F;">Saved.</span></sc-if>
+</sc-if>
+
+<sc-if value="{{ isSecurity }}" hint-placeholder-val="{{ false }}">
+<h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:38px;">Login and security</h2>
+<div style="display:flex;flex-direction:column;gap:14px;max-width:560px;">
+<span style="font-size:17px;font-weight:700;">Password</span>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">New password<input value="{{ newPw }}" onInput="{{ onNewPw }}" type="password" placeholder="At least 8 characters" style="border:1px solid #D4CCBD;border-radius:12px;padding:13px;font-size:16px;outline:0;"></label>
+<sc-if value="{{ pwMsg }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:600;color:{{ pwColor }};">{{ pwMsg }}</span></sc-if>
+<span onClick="{{ updatePw }}" style="align-self:flex-start;background:#0E1B2C;color:#F3EEE4;padding:12px 24px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;" style-hover="background:#1A2B42;">Update password</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;max-width:560px;padding-top:28px;border-top:1px solid #ECE6DA;"><span style="font-size:17px;font-weight:700;">Log out</span><span style="font-size:15px;color:#4A5566;line-height:1.5;">You are logged in on this device.</span><span onClick="{{ logout }}" style="align-self:flex-start;border:1px solid #0E1B2C;padding:11px 22px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;" style-hover="background:#0E1B2C;color:#F3EEE4;">Log out</span></div>
+<div style="display:flex;flex-direction:column;gap:10px;max-width:560px;padding-top:28px;border-top:1px solid #ECE6DA;"><span style="font-size:17px;font-weight:700;">Delete your account</span><span style="font-size:15px;color:#4A5566;line-height:1.5;">This removes your saved cards, saved apartments and trip history from this device.</span><span onClick="{{ deleteAcct }}" style="align-self:flex-start;color:#B4483A;font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:4px;cursor:pointer;">{{ deleteLabel }}</span></div>
+</sc-if>
+
+</div>
+</div>
+</section>
+</sc-if>
+<dc-import name="SiteFooter" bg="#FFFFFF" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { user: null, ready: false, tab: 'overview', trips: [], cards: [], saved: [], tripTab: 'up', confirm: null, edit: null, draft: '', addCard: false, c: { num: '', name: '', exp: '', cvc: '' }, cardErr: '', newPw: '', pwMsg: '', pwOk: false, flash: false, del: false };
+  componentDidMount() {
+    const rd = k => { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+    const h = (location.hash || '').slice(1);
+    this.setState({ ready: true, user: rd('br_user'), trips: rd('br_trips') || [], cards: rd('br_cards') || [], saved: rd('br_saved') || [], tab: ['overview', 'trips', 'saved', 'payments', 'personal', 'security'].includes(h) ? h : 'overview' });
+    this.hc = () => { const x = (location.hash || '').slice(1); if (x) this.setState({ tab: x, edit: null, addCard: false }); };
+    window.addEventListener('hashchange', this.hc);
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.hc); }
+  persist(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+  renderVals() {
+    const s = this.state, set = o => this.setState(o), u = s.user;
+    const go = k => () => { history.replaceState(null, '', '#' + k); set({ tab: k, edit: null, addCard: false, pwMsg: '' }); window.scrollTo({ top: 0 }); };
+    const P = { home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>', cal: '<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>', heart: '<path d="M12 20.25c-.3 0-.6-.1-.84-.28C8.4 17.9 3 13.7 3 8.9 3 6.2 5.1 4 7.7 4c1.7 0 3.2.9 4.3 2.3C13.1 4.9 14.6 4 16.3 4 18.9 4 21 6.2 21 8.9c0 4.8-5.4 9-8.16 11.07-.24.18-.54.28-.84.28Z"/>', card: '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>', user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>', lock: '<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>' };
+    const TABS = [['overview', 'Account', 'home'], ['trips', 'Trips', 'cal'], ['saved', 'Saved apartments', 'heart'], ['payments', 'Payments', 'card'], ['personal', 'Personal info', 'user'], ['security', 'Login and security', 'lock']];
+    const MN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dstr = iso => { const d = new Date(iso + 'T00:00:00'); return MN[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); };
+    const today = new Date().toISOString().slice(0, 10);
+    const money = n => '$' + Number(n).toLocaleString('en-US');
+    const tripVm = t => ({ id: t.id, title: 'Apartment ' + t.apt + ' · ' + t.type, dates: dstr(t.ci) + ' – ' + dstr(t.co), guests: t.guests + ' guest' + (t.guests > 1 ? 's' : ''), img: 'assets/photos/' + t.apt + '-cover.jpeg', total: money(t.total), method: t.method, href: 'apartment.html#' + t.apt, status: t.status,
+      badgeBg: t.status === 'Cancelled' ? '#FBEDEA' : t.paid ? '#E4F1EA' : '#FBF1DC', badgeFg: t.status === 'Cancelled' ? '#7A2E24' : t.paid ? '#1F5A40' : '#7A5A14',
+      canCancel: t.status !== 'Cancelled' && t.co >= today, confirming: s.confirm === t.id, askCancel: () => set({ confirm: t.id }), noCancel: () => set({ confirm: null }),
+      doCancel: () => { const tr = s.trips.map(x => x.id === t.id ? { ...x, status: 'Cancelled' } : x); this.persist('br_trips', tr); set({ trips: tr, confirm: null }); } });
+    const up = s.trips.filter(t => t.status !== 'Cancelled' && t.co >= today).sort((a, b) => a.ci.localeCompare(b.ci)), past = s.trips.filter(t => !(t.status !== 'Cancelled' && t.co >= today));
+    const list = s.tripTab === 'up' ? up : past, nxt = up[0];
+    const fields = [['name', 'Name', 'Add'], ['email', 'Email address', 'Edit'], ['phone', 'Phone number', 'Add'], ['country', 'Country or region', 'Add']].map(([k, label, add]) => {
+      const val = u ? u[k] : '', editing = s.edit === k;
+      return { label, value: val || 'Not provided', color: val ? '#2A3445' : '#8A93A0', action: val ? 'Edit' : add, view: !editing, edit: editing, draft: s.draft, onDraft: e => set({ draft: e.target.value }), start: () => set({ edit: k, draft: val || '' }), cancel: () => set({ edit: null }),
+        save: () => { if (k === 'name' && s.draft.trim().length < 2) return; const nu = { ...u, [k]: s.draft.trim() }; this.persist('br_user', nu); window.dispatchEvent(new Event('storage')); set({ user: nu, edit: null, flash: true }); setTimeout(() => set({ flash: false }), 2000); } };
+    });
+    const brand = n => /^4/.test(n) ? 'VISA' : /^5[1-5]|^2[2-7]/.test(n) ? 'MC' : /^3[47]/.test(n) ? 'AMEX' : 'CARD';
+    const saveCard = () => { const n = s.c.num.replace(/\s/g, ''); let err = '';
+      if (!/^\d{13,19}$/.test(n)) err = 'Enter a valid card number.'; else if (s.c.name.trim().length < 2) err = 'Enter the name on the card.'; else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(s.c.exp)) err = 'Expiry should look like MM/YY.'; else if (!/^\d{3,4}$/.test(s.c.cvc)) err = 'Enter the 3 or 4 digit security code.';
+      if (err) return set({ cardErr: err });
+      const cards = [...s.cards.map(x => ({ ...x, def: s.cards.length ? x.def : false })), { id: Date.now(), brand: brand(n), last4: n.slice(-4), name: s.c.name.trim(), exp: s.c.exp, def: !s.cards.length }]; this.persist('br_cards', cards); set({ cards, addCard: false, c: { num: '', name: '', exp: '', cvc: '' }, cardErr: '' }); };
+    const hist = s.trips.map(t => ({ t: 'Apartment ' + t.apt + ' · ' + dstr(t.ci), sub: t.id + ' · ' + t.method, amount: money(t.total), state: t.status === 'Cancelled' ? 'Cancelled' : t.paid ? 'Paid' : 'Awaiting transfer', bg: t.status === 'Cancelled' ? '#FBEDEA' : t.paid ? '#E4F1EA' : '#FBF1DC', fg: t.status === 'Cancelled' ? '#7A2E24' : t.paid ? '#1F5A40' : '#7A5A14' }));
+    const saved = s.saved.map(n => ({ num: n, href: 'apartment.html#' + n, img: 'assets/photos/' + n + '-cover.jpeg', line: 'View apartment', remove: () => { const x = s.saved.filter(y => y !== n); this.persist('br_saved', x); set({ saved: x }); } }));
+    const cnt = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+    return {
+      gated: s.ready && !u, authed: !!u, initial: u ? u.name[0].toUpperCase() : '', userName: u ? u.name : '', userEmail: u ? u.email : '', since: u && u.since || 2026, firstName: u ? u.name.split(' ')[0] : '',
+      tabs: TABS.map(([k, label, ic]) => ({ label, svg: { __html: P[ic] }, go: go(k), bg: s.tab === k ? '#0E1B2C' : 'transparent', fg: s.tab === k ? '#F3EEE4' : '#2A3445' })),
+      isOverview: s.tab === 'overview', isTrips: s.tab === 'trips', isSaved: s.tab === 'saved', isPayments: s.tab === 'payments', isPersonal: s.tab === 'personal', isSecurity: s.tab === 'security',
+      logout: () => { localStorage.removeItem('br_user'); window.dispatchEvent(new Event('storage')); location.href = 'index.html'; },
+      cards: [['trips', 'Trips', 'Your upcoming and past bookings, with receipts.', 'cal'], ['saved', 'Saved apartments', cnt(s.saved.length, 'apartment') + ' saved.', 'heart'], ['payments', 'Payments', 'Cards, PayPal, bank transfer and payment history.', 'card'], ['personal', 'Personal info', 'Your name, email and phone number.', 'user'], ['security', 'Login and security', 'Update your password and manage this device.', 'lock']].map(([k, t, d, ic]) => ({ t, d, svg: { __html: P[ic] }, go: go(k) })).concat([{ t: 'Help', d: 'Arni is here 24 hours a day. Read the good-to-know answers.', svg: { __html: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>' }, go: () => { location.href = 'about.html'; } }]),
+      hasNext: !!nxt, next: nxt ? { img: 'assets/photos/' + nxt.apt + '-cover.jpeg', title: 'Apartment ' + nxt.apt + ' · ' + nxt.type, dates: dstr(nxt.ci) + ' – ' + dstr(nxt.co), guests: cnt(nxt.guests, 'guest') } : {}, toTrips: go('trips'),
+      showUp: () => set({ tripTab: 'up' }), showPast: () => set({ tripTab: 'past' }), upBg: s.tripTab === 'up' ? '#FFFFFF' : 'transparent', upFg: s.tripTab === 'up' ? '#0E1B2C' : '#4A5566', pastBg: s.tripTab === 'past' ? '#FFFFFF' : 'transparent', pastFg: s.tripTab === 'past' ? '#0E1B2C' : '#4A5566', upCount: up.length, pastCount: past.length,
+      trips: list.map(tripVm), noTrips: !list.length, emptyTitle: s.tripTab === 'up' ? 'No upcoming trips' : 'No past trips', emptyText: s.tripTab === 'up' ? 'When you book an apartment, your trip shows up here with its reference and payment details.' : 'Completed and cancelled trips will appear here.',
+      saved, noSaved: !saved.length,
+      cardList: s.cards.map(c => ({ ...c, isDefault: c.def, notDefault: !c.def, makeDefault: () => { const x = s.cards.map(y => ({ ...y, def: y.id === c.id })); this.persist('br_cards', x); set({ cards: x }); }, remove: () => { let x = s.cards.filter(y => y.id !== c.id); if (x.length && !x.some(y => y.def)) x[0] = { ...x[0], def: true }; this.persist('br_cards', x); set({ cards: x }); } })), noCards: !s.cards.length,
+      addingCard: s.addCard, addCard: () => set({ addCard: true }), cancelCard: () => set({ addCard: false, cardErr: '' }), saveCard, cardErr: s.cardErr,
+      cNum: s.c.num, cName: s.c.name, cExp: s.c.exp, cCvc: s.c.cvc, onCNum: e => set({ c: { ...s.c, num: e.target.value.replace(/[^\d ]/g, '').slice(0, 23) }, cardErr: '' }), onCName: e => set({ c: { ...s.c, name: e.target.value }, cardErr: '' }), onCExp: e => set({ c: { ...s.c, exp: e.target.value.replace(/[^\d/]/g, '').slice(0, 5) }, cardErr: '' }), onCCvc: e => set({ c: { ...s.c, cvc: e.target.value.replace(/\D/g, '').slice(0, 4) }, cardErr: '' }),
+      history: hist, noHistory: !hist.length,
+      fields, savedFlash: s.flash,
+      newPw: s.newPw, onNewPw: e => set({ newPw: e.target.value, pwMsg: '' }), pwMsg: s.pwMsg, pwColor: s.pwOk ? '#2F6B4F' : '#B4483A',
+      updatePw: () => s.newPw.length < 8 ? set({ pwMsg: 'Password needs at least 8 characters.', pwOk: false }) : set({ pwMsg: 'Password updated.', pwOk: true, newPw: '' }),
+      deleteLabel: s.del ? 'Click again to confirm deletion' : 'Delete account', deleteAcct: () => { if (!s.del) return set({ del: true }); ['br_user', 'br_trips', 'br_cards', 'br_saved'].forEach(k => localStorage.removeItem(k)); window.dispatchEvent(new Event('storage')); location.href = 'index.html'; },
+    };
+  }
+}
+</script>
+</body>
+</html>

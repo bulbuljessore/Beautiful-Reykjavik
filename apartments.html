@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Marcellus';src:url('fonts/Marcellus-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Karla';src:url('fonts/Karla-Variable.ttf') format('truetype');font-weight:200 800;font-display:swap}body{margin:0;background:#0E1B2C;color:#F3EEE4;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}a{color:#C29A4C;text-decoration:none;transition:color 160ms ease}a:hover{color:#F3EEE4}*{box-sizing:border-box}input{font-family:'Karla',sans-serif}@keyframes popIn{from{opacity:0;transform:translateY(-6px) scale(0.98)}to{opacity:1;transform:none}}@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@media (max-width:1080px){[data-nav-low]{display:none}}@media (max-width:760px){[data-bar]{grid-template-columns:1fr 1fr!important;border-radius:28px!important}[data-bar]>*:last-child{grid-column:1 / -1;width:100%!important;border-radius:999px!important}}@media (prefers-reduced-motion:reduce){*{transition-duration:0ms!important;animation-duration:0ms!important}}</style>
+</helmet>
+<div id="top" style="min-height:100vh;background:#0E1B2C;">
+
+<dc-import name="SiteHeader" active="apartments" hint-size="100%,78px"></dc-import>
+
+<section style="max-width:1280px;margin:0 auto;padding:56px 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;">
+<span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Laugavegur 15 · Downtown Reykjavík</span>
+<h1 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(38px,5vw,60px);line-height:1.05;max-width:900px;text-wrap:balance;">Choose your apartment</h1>
+<p style="margin:0;font-size:18px;color:#C4CCD8;">13 apartments, one building, one elevator. Add your dates and guests to see what fits.</p>
+</section>
+
+<div style="position:relative;z-index:20;max-width:1000px;margin:32px auto 0;padding:0 24px;">
+<div data-bar="1" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.2fr) 60px;align-items:center;gap:2px;background:#FFFFFF;color:#0E1B2C;border-radius:999px;padding:6px;box-shadow:0 18px 50px rgba(0,0,0,0.35);">
+<div onClick="{{ openIn }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 22px;border-radius:999px;cursor:pointer;background:{{ segInBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Check in</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ inLabel }}</span></div>
+<div onClick="{{ openOut }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 22px;border-radius:999px;cursor:pointer;background:{{ segOutBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Check out</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ outLabel }}</span></div>
+<div onClick="{{ openGuests }}" style="display:flex;flex-direction:column;gap:2px;padding:10px 22px;border-radius:999px;cursor:pointer;background:{{ segGuestsBg }};transition:background 160ms ease;" style-hover="background:#F1ECE3;"><span style="font-size:13px;font-weight:700;">Guests</span><span style="font-size:15px;color:#5A6474;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ guestLabel }}</span></div>
+<div onClick="{{ doSearch }}" aria-label="Search" style="animation:brBeat 2.4s ease-in-out infinite;width:54px;height:54px;border-radius:50%;background:#C29A4C;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0E1B2C;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#D4AE62;transform:scale(1.04);" style-active="transform:scale(0.94);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div>
+</div>
+<sc-if value="{{ showDates }}" hint-placeholder-val="{{ false }}">
+<div style="animation:popIn 180ms cubic-bezier(0.23,1,0.32,1);transform-origin:top center;position:absolute;left:24px;top:84px;width:740px;max-width:calc(100% - 48px);background:#FFFFFF;color:#0E1B2C;border-radius:28px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,0.45);display:flex;flex-direction:column;gap:18px;">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:22px;">{{ dateHint }}</span><span style="font-size:13px;color:#6B7280;">Crossed-out dates are booked · synced with Airbnb</span></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:36px;">
+<sc-for list="{{ months }}" as="m" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:10px;">
+<span style="font-size:16px;font-weight:700;text-align:center;">{{ m.title }}</span>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);font-size:12px;color:#6B7280;text-align:center;font-weight:600;"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px 0;">
+<sc-for list="{{ m.cells }}" as="c" hint-placeholder-count="35"><span onClick="{{ c.pick }}" style="height:40px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;border-radius:{{ c.radius }};background:{{ c.bg }};color:{{ c.fg }};text-decoration:{{ c.deco }};cursor:{{ c.cur }};transition:background 140ms ease,box-shadow 140ms ease;" style-hover="box-shadow:inset 0 0 0 1px #0E1B2C;border-radius:50%;">{{ c.label }}</span></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:15px;"><span onClick="{{ clearDates }}" style="text-decoration:underline;cursor:pointer;font-weight:600;transition:color 160ms ease;" style-hover="color:#9C7A35;">Clear dates</span><span onClick="{{ close }}" style="background:#0E1B2C;color:#F3EEE4;padding:10px 24px;border-radius:999px;cursor:pointer;font-weight:600;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#1A2B42;" style-active="transform:scale(0.96);">Done</span></div>
+</div>
+</sc-if>
+<sc-if value="{{ showGuests }}" hint-placeholder-val="{{ false }}">
+<div style="animation:popIn 180ms cubic-bezier(0.23,1,0.32,1);transform-origin:top center;position:absolute;right:24px;top:84px;width:380px;max-width:calc(100% - 48px);background:#FFFFFF;color:#0E1B2C;border-radius:28px;padding:12px 28px 20px;box-shadow:0 24px 60px rgba(0,0,0,0.45);display:flex;flex-direction:column;">
+<sc-for list="{{ guestRows }}" as="g" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #ECE6DA;">
+<div style="display:flex;flex-direction:column;gap:2px;"><span style="font-size:16px;font-weight:700;">{{ g.name }}</span><span style="font-size:14px;color:#6B7280;">{{ g.sub }}</span></div>
+<div style="display:flex;align-items:center;gap:14px;"><span onClick="{{ g.dec }}" style="width:34px;height:34px;border-radius:50%;border:1px solid #8A93A0;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{ g.decOp }};transition:border-color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#0E1B2C;" style-active="transform:scale(0.9);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path></svg></span><span style="width:18px;text-align:center;font-size:16px;font-weight:600;">{{ g.n }}</span><span onClick="{{ g.inc }}" style="width:34px;height:34px;border-radius:50%;border:1px solid #8A93A0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#0E1B2C;" style-active="transform:scale(0.9);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></span></div>
+</div>
+</sc-for>
+<div style="display:flex;justify-content:flex-end;padding-top:16px;"><span onClick="{{ close }}" style="background:#0E1B2C;color:#F3EEE4;padding:10px 24px;border-radius:999px;cursor:pointer;font-size:15px;font-weight:600;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#1A2B42;" style-active="transform:scale(0.96);">Done</span></div>
+</div>
+</sc-if>
+</div>
+
+<section style="max-width:1280px;margin:0 auto;padding:36px 24px 56px;display:flex;flex-direction:column;gap:18px;">
+<div style="display:flex;flex-wrap:wrap;gap:14px 36px;align-items:center;justify-content:center;">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;"><span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#9AA5B5;font-weight:700;">Size</span>
+<sc-for list="{{ typeChips }}" as="c" hint-placeholder-count="4"><span onClick="{{ c.pick }}" style="padding:9px 16px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};transition:background 180ms ease,color 180ms ease,border-color 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;" style-active="transform:scale(0.96);">{{ c.label }}</span></sc-for></div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;"><span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#9AA5B5;font-weight:700;">Floor</span>
+<sc-for list="{{ floorChips }}" as="c" hint-placeholder-count="4"><span onClick="{{ c.pick }}" style="padding:9px 16px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};transition:background 180ms ease,color 180ms ease,border-color 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;" style-active="transform:scale(0.96);">{{ c.label }}</span></sc-for></div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;"><span style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#9AA5B5;font-weight:700;">Sort</span>
+<sc-for list="{{ sortChips }}" as="c" hint-placeholder-count="3"><span onClick="{{ c.pick }}" style="padding:9px 16px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};transition:background 180ms ease,color 180ms ease,border-color 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;" style-active="transform:scale(0.96);">{{ c.label }}</span></sc-for></div>
+</div>
+</section>
+
+<section id="apartments" style="background:#FFFFFF;color:#0E1B2C;padding:48px max(24px,calc((100% - 1232px) / 2)) 80px;display:flex;flex-direction:column;gap:28px;min-height:480px;">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:6px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:32px;line-height:1.1;">{{ countTitle }}</span><span style="font-size:15px;color:#6B7280;">{{ summary }}</span></div>
+<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;"><div style="display:flex;background:#F1ECE3;border-radius:999px;padding:4px;font-size:14px;font-weight:700;"><span onClick="{{ setGallery }}" style="padding:8px 18px;border-radius:999px;cursor:pointer;background:{{ gBg }};color:{{ gFg }};transition:background 200ms ease,color 200ms ease;">Gallery</span><span onClick="{{ setIndex }}" style="padding:8px 18px;border-radius:999px;cursor:pointer;background:{{ iBg }};color:{{ iFg }};transition:background 200ms ease,color 200ms ease;">Index</span></div>
+<sc-if value="{{ hasFilters }}" hint-placeholder-val="{{ false }}"><span onClick="{{ clearAll }}" style="font-size:15px;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;transition:color 160ms ease;" style-hover="color:#9C7A35;">Clear all filters</span></sc-if></div>
+</div>
+<sc-if value="{{ galleryView }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:36px 24px;">
+<sc-for list="{{ apts }}" as="a" hint-placeholder-count="8">
+<div onClick="{{ a.go }}" onMouseEnter="{{ a.enter }}" onMouseLeave="{{ a.leave }}" style="display:flex;flex-direction:column;gap:8px;cursor:pointer;animation:cardIn 380ms cubic-bezier(0.23,1,0.32,1) both;transition:transform 220ms cubic-bezier(0.23,1,0.32,1);" style-hover="transform:translateY(-3px);">
+<div style="position:relative;aspect-ratio:4/3.4;border-radius:18px;box-shadow:{{ a.shadow }};transition:box-shadow 220ms ease;background:#EEE9E0;overflow:hidden;"><sc-for list="{{ a.slides }}" as="sl" hint-placeholder-count="0"><img src="{{ sl.src }}" alt="Apartment {{ a.num }}, photo {{ sl.n }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ sl.op }};transform:scale({{ sl.sc }});transition:opacity 420ms ease,transform 1400ms cubic-bezier(0.23,1,0.32,1);"></sc-for>
+<span style="position:absolute;left:12px;top:12px;background:#FFFFFF;color:#0E1B2C;font:700 12px 'Karla';padding:6px 11px;border-radius:999px;box-shadow:0 1px 4px rgba(0,0,0,0.12);">{{ a.type }}</span>
+<span onClick="{{ a.toggleSave }}" aria-label="Save apartment" style="position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);color:{{ a.heartColor }};display:flex;align-items:center;justify-content:center;transition:transform 160ms cubic-bezier(0.23,1,0.32,1),color 160ms ease;" style-hover="color:#B4483A;" style-active="transform:scale(0.88);"><svg width="22" height="22" viewBox="0 0 24 24" fill="{{ a.heartFill }}" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.25c-.3 0-.6-.1-.84-.28C8.4 17.9 3 13.7 3 8.9 3 6.2 5.1 4 7.7 4c1.7 0 3.2.9 4.3 2.3C13.1 4.9 14.6 4 16.3 4 18.9 4 21 6.2 21 8.9c0 4.8-5.4 9-8.16 11.07-.24.18-.54.28-.84.28Z"></path></svg></span>
+<span style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:5px 7px;border-radius:999px;background:rgba(14,27,44,0.28);backdrop-filter:blur(4px);"><sc-for list="{{ a.dots }}" as="d" hint-placeholder-count="4"><span style="width:{{ d.w }};height:6px;border-radius:999px;background:{{ d.bg }};transition:width 260ms cubic-bezier(0.23,1,0.32,1),background 200ms ease;"></span></sc-for></span>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-top:4px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:22px;">Apartment {{ a.num }}</span><span style="display:flex;align-items:center;gap:4px;font-size:14px;white-space:nowrap;"><span style="color:#9C7A35;display:flex;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>{{ a.rating }} <span style="color:#6B7280;">{{ a.countLabel }}</span></span></div>
+<div style="display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:#4A5566;"><span style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Sleeps {{ a.sleeps }}</span><span style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>{{ a.type }}</span><span style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 8h6"></path><path d="M9 12h6"></path><path d="M9 16h6"></path></svg>{{ a.floor }}</span></div>
+<span style="font-size:15px;color:{{ a.priceColor }};font-weight:{{ a.priceWeight }};">{{ a.priceText }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ indexView }}" hint-placeholder-val="{{ false }}">
+<div onMouseMove="{{ moveIdx }}" onMouseLeave="{{ leaveIdx }}" style="display:flex;flex-direction:column;border-bottom:1px solid #0E1B2C;">
+<sc-for list="{{ apts }}" as="a" hint-placeholder-count="8">
+<div onClick="{{ a.go }}" onMouseEnter="{{ a.rowEnter }}" style="display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1.4fr) minmax(0,1fr) minmax(0,0.8fr) auto auto;align-items:center;gap:20px;padding:20px 0;border-top:1px solid #0E1B2C;cursor:pointer;opacity:{{ a.rowOp }};transition:opacity 200ms ease,transform 260ms cubic-bezier(0.23,1,0.32,1);transform:translateX({{ a.rowX }});">
+<span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-0.04em;">{{ a.num }}</span>
+<span style="font-size:18px;font-weight:600;">{{ a.type }}</span>
+<span style="font-size:16px;color:#4A5566;">Sleeps {{ a.sleeps }}</span>
+<span style="font-size:16px;color:#4A5566;">{{ a.floor }}</span>
+<span style="display:flex;align-items:center;gap:5px;font-size:16px;"><span style="color:#9C7A35;display:flex;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>{{ a.rating }}</span>
+<span style="display:flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+</div>
+</sc-for>
+</div>
+<div style="position:fixed;left:0;top:0;width:280px;height:210px;border-radius:16px;overflow:hidden;pointer-events:none;z-index:40;opacity:{{ prevOp }};transition:opacity 160ms ease;box-shadow:0 24px 60px rgba(14,27,44,0.3);" id="idx-prev"><img loading="lazy" src="{{ prevSrc }}" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+</sc-if>
+<sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:48px 0;">
+<span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;">No apartments match these filters</span>
+<span style="font-size:16px;color:#6B7280;max-width:460px;">Try fewer guests or a different size or floor.</span>
+<span onClick="{{ clearAll }}" style="background:#0E1B2C;color:#F3EEE4;padding:12px 26px;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#1A2B42;" style-active="transform:scale(0.96);">Clear all filters</span>
+</div>
+</sc-if>
+</section>
+
+<dc-import name="SiteFooter" bg="#FFFFFF" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'gallery', idxHov: null, saved: [], hov: null, hi: 0, open: null, ci: null, co: null, g: { Adults: 2, Children: 0, Infants: 0, Pets: 0 }, type: 'All', floor: 'Any', sort: 'Recommended', menu: false, user: null };
+  componentDidMount() { try { this.setState({ saved: JSON.parse(localStorage.getItem('br_saved') || '[]') }); } catch (e) {} this.t = setInterval(() => { if (this.state.hov) this.setState(s => ({ hi: (s.hi + 1) % 4 })); }, 1100); }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const s = this.state, set = o => this.setState(o);
+    const tog = k => () => set({ open: s.open === k ? null : k, menu: false });
+    const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const booked = new Set([1205,1206,1207,1219,1220,1224,1225,1231,101,102,110,111,117]);
+    const keyOf = (m, d) => (m + 1) * 100 + d, ord = k => (k < 500 ? 10000 : 0) + k;
+    const fmt = k => k == null ? 'Add dates' : MN[Math.floor(k / 100) - 1].slice(0, 3) + ' ' + (k % 100);
+    const toDate = k => new Date(2026 + (k < 500 ? 1 : 0), Math.floor(k / 100) - 1, k % 100);
+    const months = [[2026, 11], [2027, 0]].map(([y, m]) => {
+      const off = (new Date(y, m, 1).getDay() + 6) % 7, n = new Date(y, m + 1, 0).getDate();
+      const cells = Array.from({ length: off }, () => ({ label: '', bg: 'transparent', fg: '#0E1B2C', deco: 'none', cur: 'default', radius: '0', pick: null }));
+      for (let d = 1; d <= n; d++) {
+        const k = keyOf(m, d), b = booked.has(k), isEnd = k === s.ci || k === s.co;
+        const inRange = s.ci && s.co && ord(k) > ord(s.ci) && ord(k) < ord(s.co);
+        cells.push({ label: d, deco: b ? 'line-through' : 'none', cur: b ? 'not-allowed' : 'pointer', bg: isEnd ? '#0E1B2C' : inRange ? '#EFE9DE' : 'transparent', fg: isEnd ? '#F3EEE4' : b ? '#B5AFA5' : '#0E1B2C', radius: isEnd ? '50%' : '0',
+          pick: b ? null : () => { if (!s.ci || s.co || ord(k) <= ord(s.ci)) set({ ci: k, co: null }); else set({ co: k }); } });
+      }
+      return { title: MN[m] + ' ' + y, cells };
+    });
+    const subs = { Adults: 'Age 13+', Children: 'Ages 2–12', Infants: 'Under 2', Pets: 'Ask Arni before booking' };
+    const guestRows = Object.keys(s.g).map(name => ({ name, sub: subs[name], n: s.g[name], decOp: s.g[name] > (name === 'Adults' ? 1 : 0) ? 1 : 0.3,
+      inc: () => set({ g: { ...s.g, [name]: s.g[name] + 1 } }), dec: () => set({ g: { ...s.g, [name]: Math.max(name === 'Adults' ? 1 : 0, s.g[name] - 1) } }) }));
+    const ppl = s.g.Adults + s.g.Children;
+    const guestLabel = ppl + ' guest' + (ppl > 1 ? 's' : '') + (s.g.Infants ? ', ' + s.g.Infants + ' infant' : '') + (s.g.Pets ? ', ' + s.g.Pets + ' pet' : '');
+    const nights = s.ci && s.co ? Math.round((toDate(s.co) - toDate(s.ci)) / 864e5) : 0;
+    const segBg = k => s.open === k ? '#F1ECE3' : 'transparent';
+    const L = [['250','1 Bedroom',5,4.97,855],['251','1 Bedroom',5,4.94,752],['252','Studio',2,4.92,null],['253','1 Bedroom',5,4.96,618],['254','XL Studio',3,4.97,null],['255','1 Bedroom',5,4.98,746],['350','Studio',2,4.96,781],['351','Studio',3,4.97,803],['352','1 Bedroom',3,4.93,722],['353','3 Bedroom',9,4.96,617],['451','2 Bedroom',5,4.98,null],['453','2 Bedroom',7,4.95,761],['454','Studio',2,4.90,918]]
+      .map(([num, type, sleeps, r, c]) => ({ num, type, sleeps, r, rating: r.toFixed(2), countLabel: c ? '(' + c + ')' : '', beds: type.includes('Studio') ? 0 : parseInt(type), fl: num[0], floor: ({ '2': '2nd', '3': '3rd', '4': '4th' })[num[0]] + ' floor' }));
+    const typeDefs = { 'All': () => true, 'Studios': a => a.beds === 0, '1 bedroom': a => a.beds === 1, '2–3 bedrooms': a => a.beds >= 2 };
+    const floorDefs = { 'Any': () => true, '2nd': a => a.fl === '2', '3rd': a => a.fl === '3', '4th': a => a.fl === '4' };
+    const base = L.filter(a => a.sleeps >= ppl);
+    const chip = (defs, cur, key, count) => Object.keys(defs).map(label => { const on = cur === label; return { label: count ? label + ' · ' + base.filter(a => defs[label](a) && (key === 'type' ? floorDefs[s.floor](a) : typeDefs[s.type](a))).length : label, bg: on ? '#C29A4C' : 'transparent', fg: on ? '#0E1B2C' : '#E1E5EB', bd: on ? '#C29A4C' : '#3A4E6A', pick: () => set({ [key]: label }) }; });
+    const sortFns = { 'Recommended': null, 'Top rated': (a, b) => b.r - a.r, 'Sleeps most': (a, b) => b.sleeps - a.sleeps };
+    const sortChips = Object.keys(sortFns).map(label => { const on = s.sort === label; return { label, bg: on ? '#C29A4C' : 'transparent', fg: on ? '#0E1B2C' : '#E1E5EB', bd: on ? '#C29A4C' : '#3A4E6A', pick: () => set({ sort: label }) }; });
+    let list = base.filter(a => typeDefs[s.type](a) && floorDefs[s.floor](a));
+    if (sortFns[s.sort]) list = [...list].sort(sortFns[s.sort]);
+    const apts = list.map(a => {
+      const active = s.hov === a.num, idx = active ? s.hi : 0;
+      const srcs = ['cover', '03', '04', '05'].map(x => 'assets/photos/' + a.num + '-' + x + '.jpeg');
+      return { ...a, shadow: active ? '0 14px 34px rgba(14,27,44,0.18)' : '0 0 0 rgba(0,0,0,0)',
+        priceText: nights ? nights + ' night' + (nights > 1 ? 's' : '') + ' · View price' : 'Add dates for prices', priceColor: nights ? '#9C7A35' : '#6B7280', priceWeight: nights ? 700 : 400,
+        slides: srcs.map((src, i) => ({ src, n: i + 1, op: i === idx ? 1 : 0, sc: active && i === idx ? 1.04 : 1 })),
+        dots: srcs.map((_, i) => ({ w: i === idx ? '16px' : '6px', bg: i === idx ? '#FFFFFF' : 'rgba(255,255,255,0.55)' })),
+        rowEnter: () => set({ idxHov: a.num }), rowOp: s.idxHov && s.idxHov !== a.num ? 0.4 : 1, rowX: s.idxHov === a.num ? '10px' : '0px', enter: () => set({ hov: a.num, hi: 1 }), leave: () => set({ hov: null, hi: 0 }), toggleSave: e => { e.stopPropagation(); const x = s.saved.includes(a.num) ? s.saved.filter(y => y !== a.num) : [...s.saved, a.num]; localStorage.setItem('br_saved', JSON.stringify(x)); set({ saved: x }); }, heartColor: s.saved.includes(a.num) ? '#B4483A' : '#0E1B2C', heartFill: s.saved.includes(a.num) ? 'currentColor' : 'none', go: () => { location.href = 'apartment.html' + (s.ci ? '?ci=' + s.ci + (s.co ? '&co=' + s.co : '') + '&g=' + ppl : (ppl !== 2 ? '?g=' + ppl : '')) + '#' + a.num; } };
+    });
+    const hasFilters = s.type !== 'All' || s.floor !== 'Any' || s.sort !== 'Recommended' || ppl > 2 || !!s.ci;
+    const aptWord = n => n + (n === 1 ? ' apartment' : ' apartments');
+    const on = ['#0E1B2C', '#F3EEE4'], off = ['transparent', '#4A5566'], ix = s.view === 'index';
+    return {
+      setGallery: () => set({ view: 'gallery', idxHov: null }), setIndex: () => set({ view: 'index' }), galleryView: !ix, indexView: ix, gBg: (ix ? off : on)[0], gFg: (ix ? off : on)[1], iBg: (ix ? on : off)[0], iFg: (ix ? on : off)[1],
+      moveIdx: e => { const el = document.getElementById('idx-prev'); if (el) el.style.transform = 'translate(' + (e.clientX + 28) + 'px,' + (e.clientY - 105) + 'px)'; }, leaveIdx: () => set({ idxHov: null }),
+      prevSrc: s.idxHov ? 'assets/photos/' + s.idxHov + '-cover.jpeg' : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', prevOp: s.idxHov ? 1 : 0,
+      openDates: () => set({ open: 'dates', menu: false }), openIn: tog('dates'), openOut: tog('dates'), openGuests: tog('guests'),
+      segInBg: s.open === 'dates' && !s.ci ? '#F1ECE3' : 'transparent', segOutBg: s.open === 'dates' && s.ci ? '#F1ECE3' : 'transparent', segGuestsBg: segBg('guests'),
+      showDates: s.open === 'dates', showGuests: s.open === 'guests', inLabel: fmt(s.ci), outLabel: fmt(s.co), guestLabel, months, guestRows,
+      dateHint: !s.ci ? 'Select check-in date' : !s.co ? 'Select check-out date' : nights + ' nights · ' + fmt(s.ci) + ' – ' + fmt(s.co),
+      close: () => set({ open: null }), clearDates: () => set({ ci: null, co: null }), doSearch: () => { set({ open: null }); const el = document.getElementById('apartments'); if (el) { const sc = document.scrollingElement; sc.scrollTo({ top: el.getBoundingClientRect().top + sc.scrollTop - 90, behavior: 'smooth' }); } },
+      typeChips: chip(typeDefs, s.type, 'type', true), floorChips: chip(floorDefs, s.floor, 'floor', true), sortChips,
+      countTitle: aptWord(list.length) + (list.length === 13 ? '' : ' of 13'),
+      summary: 'For ' + guestLabel + (nights ? ' · ' + fmt(s.ci) + ' – ' + fmt(s.co) : ' · add dates to see availability'),
+      apts, isEmpty: list.length === 0, hasFilters,
+      clearAll: () => set({ type: 'All', floor: 'Any', sort: 'Recommended', ci: null, co: null, g: { Adults: 2, Children: 0, Infants: 0, Pets: 0 } }),
+      toggleMenu: () => set({ menu: !s.menu, open: null }), closeMenu: () => set({ menu: false }), showMenu: s.menu,
+      loggedIn: !!s.user, loggedOut: !s.user, avatarBg: s.user ? '#C29A4C' : '#4A5566',
+      userName: s.user ? s.user.name : '', userEmail: s.user ? s.user.email : '', userInitial: s.user ? s.user.name[0] : '',
+      login: () => set({ user: { name: 'Guest', email: 'guest@example.com' }, menu: false }), logout: () => set({ user: null, menu: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

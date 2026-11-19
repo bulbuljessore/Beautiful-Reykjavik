@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'Marcellus';src:url('fonts/Marcellus-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Karla';src:url('fonts/Karla-Variable.ttf') format('truetype');font-weight:200 800;font-display:swap}body{margin:0;background:#0E1B2C;color:#F3EEE4;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}a{color:#C29A4C;text-decoration:none;transition:color 160ms ease}a:hover{color:#F3EEE4}*{box-sizing:border-box}@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){*{transition-duration:0ms!important;animation-duration:0ms!important}}</style>
+</helmet>
+<div id="top" style="min-height:100vh;background:#0E1B2C;">
+<dc-import name="SiteHeader" active="reviews" hint-size="100%,78px"></dc-import>
+
+<section style="max-width:1280px;margin:0 auto;padding:56px 24px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:56px;align-items:center;">
+<div style="display:flex;flex-direction:column;gap:18px;">
+<span style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#C29A4C;font-weight:700;">Guest reviews</span>
+<h1 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(40px,5.4vw,68px);line-height:1.03;text-wrap:balance;">What guests say about staying with Arni</h1>
+<p style="margin:0;font-size:19px;line-height:1.55;color:#C4CCD8;max-width:520px;">Please take the time to read our reviews, we are very proud of them and grateful for our wonderful guests.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:6px;">
+<sc-for list="{{ badges }}" as="b" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:8px;padding:9px 16px 9px 12px;border-radius:999px;background:#1A2B42;border:1px solid #2A3D57;font-size:14px;font-weight:700;"><span style="color:#C29A4C;display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" dangerouslySetInnerHTML="{{ b.svg }}"></svg></span>{{ b.t }}</span></sc-for>
+</div>
+</div>
+<div style="background:#1A2B42;border:1px solid #22324A;border-radius:28px;padding:40px 32px 8px;display:flex;flex-direction:column;gap:32px;">
+<dc-import name="RatingBadge" variant="hero" rating="4.95" label="Guest favorite" sub="All 13 apartments are Guest favorites, among the most loved homes on Airbnb" count="9,793" hint-size="100%,260px"></dc-import>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 12px;padding:4px 0 28px;">
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="6"><div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:4px;"><span style="font-size:13px;color:#C4CCD8;">{{ c.label }}</span><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:26px;line-height:1;">{{ c.v }}</span><span style="color:#C29A4C;display:flex;padding-top:8px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" dangerouslySetInnerHTML="{{ c.svg }}"></svg></span></div></sc-for>
+</div>
+</div>
+</section>
+
+<section style="padding:8px 0 64px;overflow:hidden;">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px 24px;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:28px;">Short and to the point</span></div>
+<div data-mq-row="1" data-lenis-prevent="1" style="overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent);">
+<div data-mq-track="1" style="display:flex;width:max-content;animation:brLeft 90s linear infinite;will-change:transform;">
+<sc-for list="{{ quoteTrack }}" as="q" hint-placeholder-count="6"><div style="flex:none;width:min(460px,80vw);margin-right:18px;min-height:230px;padding:32px;border-radius:26px;background:#C29A4C;color:#0E1B2C;display:flex;flex-direction:column;justify-content:space-between;gap:24px;"><p style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(20px,2vw,25px);line-height:1.28;text-wrap:balance;">“{{ q.text }}”</p><span style="font-size:15px;font-weight:700;">{{ q.name }}<span style="font-weight:500;"> · Apartment {{ q.apt }}</span></span></div></sc-for>
+</div>
+</div>
+</section>
+<section style="background:#08111D;">
+<div style="max-width:1280px;margin:0 auto;padding:64px 24px 88px;display:flex;flex-direction:column;gap:32px;">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:12px;"><div style="display:flex;flex-wrap:wrap;gap:8px;"><sc-for list="{{ chips }}" as="c" hint-placeholder-count="14"><span onClick="{{ c.pick }}" style="padding:9px 15px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};transition:background 180ms ease,color 180ms ease,border-color 180ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="border-color:#C29A4C;" style-active="transform:scale(0.96);">{{ c.label }}</span></sc-for></div></div>
+<a href="{{ airbnbUrl }}" style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;border:1px solid #3A4E6A;padding:11px 20px;border-radius:999px;transition:border-color 160ms ease,color 160ms ease;" style-hover="border-color:#C29A4C;">{{ airbnbLabel }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3"></path></svg></a>
+</div>
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;"><span style="font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:30px;">{{ heading }}</span><span style="font-size:15px;color:#9AA5B5;">{{ sub }}</span></div>
+<div data-marq="1" style="grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;height:680px;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 91%,transparent);">
+<sc-for list="{{ reviewCols }}" as="col" hint-placeholder-count="3"><div style="overflow:hidden;min-width:0;"><div data-mq-track="1" style="display:flex;flex-direction:column;animation:{{ col.anim }};will-change:transform;">
+<sc-for list="{{ col.items }}" as="r" hint-placeholder-count="6"><div style="margin-bottom:18px;background:#1A2B42;border:1px solid #22324A;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;"><div style="display:flex;gap:12px;align-items:center;"><span style="width:40px;height:40px;flex:none;border-radius:50%;background:#4F7A86;display:flex;align-items:center;justify-content:center;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:17px;">{{ r.initial }}</span><div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:15px;font-weight:700;">{{ r.name }}</span><span style="font-size:13px;color:#9AA5B5;">{{ r.from }}</span></div></div><p style="margin:0;font-size:15.5px;line-height:1.6;color:#E1E5EB;white-space:pre-line;text-wrap:pretty;">{{ r.text }}</p><span style="font-size:13px;color:#9AA5B5;"><a href="{{ r.href }}" style="color:#C4CCD8;text-decoration:underline;text-underline-offset:3px;">Apartment {{ r.apt }}</a> · {{ r.when }} · via Airbnb</span></div></sc-for>
+</div></div></sc-for>
+</div>
+</div>
+</section>
+
+<section style="background:#FFFFFF;color:#0E1B2C;padding:80px max(24px,calc((100% - 1232px) / 2));display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;">
+<div style="display:flex;flex-direction:column;gap:10px;"><h2 style="margin:0;font-family:'Figtree','Karla',sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:44px;line-height:1.05;max-width:620px;">Find the right apartment</h2></div>
+<a href="apartments.html" style="color:#0E1B2C;background:#C29A4C;padding:15px 30px;border-radius:999px;font-size:16px;font-weight:700;transition:background 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1);" style-hover="background:#D4AE62;color:#0E1B2C;" style-active="transform:scale(0.97);">See all 13 apartments</a>
+</section>
+<dc-import name="SiteFooter" bg="#FFFFFF" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { data: null, apt: 'All', n: 12 };
+  async componentDidMount() { try { this.setState({ data: await (await fetch('apartments-data.json')).json() }); } catch (e) {} }
+  cols(list) { const per = [5, 5.5, 9], dir = ['brUp', 'brDown', 'brUp']; return [0, 1, 2].map(c => { let base = list.filter((_, i) => i % 3 === c); if (!base.length) base = list.slice(0, 2); let it = base; while (it.length && it.length < 6) it = it.concat(base); return { anim: dir[c] + ' ' + Math.round(it.length * per[c]) + 's linear infinite', items: it.concat(it) }; }); }
+  renderVals() {
+    const s = this.state, D = s.data || [];
+    const all = D.flatMap(a => a.rev.filter(r => r.text).map(r => ({ ...r, apt: a.num, initial: r.name[0], href: 'apartment.html#' + a.num })));
+    const sum = {}, cnt = {}; D.forEach(a => Object.keys(a.rb).forEach(k => { sum[k] = (sum[k] || 0) + a.rb[k]; cnt[k] = (cnt[k] || 0) + 1; }));
+    const cats = ['Cleanliness', 'Accuracy', 'Check-in', 'Communication', 'Location', 'Value'].filter(k => cnt[k.toLowerCase()]).map(k => { const v = sum[k.toLowerCase()] / cnt[k.toLowerCase()]; return { label: k, v: v.toFixed(2), w: (v / 5 * 100) + '%' }; });
+    const list = s.apt === 'All' ? all : all.filter(r => r.apt === s.apt);
+    const A = D.find(a => a.num === s.apt);
+    const chips = ['All', ...D.map(a => a.num)].map(l => { const on = s.apt === l; return { label: l === 'All' ? 'All 13' : l, bg: on ? '#C29A4C' : 'transparent', fg: on ? '#0E1B2C' : '#E1E5EB', bd: on ? '#C29A4C' : '#3A4E6A', pick: () => this.setState({ apt: l, n: 12 }) }; });
+    const CI = { Cleanliness: '<path d="M3 3h.01"/><path d="M7 5h.01"/><path d="M11 7h.01"/><path d="M3 7h.01"/><path d="M7 9h.01"/><path d="M3 11h.01"/><rect width="4" height="4" x="15" y="5"/><path d="m19 9 2 2v10c0 .6-.4 1-1 1h-6c-.6 0-1-.4-1-1V11l2-2"/><path d="m13 14 8-2"/><path d="m13 19 8-2"/>', Accuracy: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>', 'Check-in': '<path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/><path d="m15.5 7.5 3 3L22 7l-3-3"/>', Communication: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>', Location: '<path d="M14.1 5.1 9 3 3 5.4v15L9 18l6 3 6-2.4v-15l-6.9 1.5Z"/><path d="M9 3v15"/><path d="M15 6v15"/>', Value: '<path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>' };
+    cats.forEach(c => c.svg = { __html: CI[c.label] });
+    const BD = { medal: '<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>', trophy: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>', shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>' };
+    const badges = [{ t: 'Superhost', svg: { __html: BD.medal } }, { t: '5 apartments in the top 1%', svg: { __html: BD.trophy } }, { t: 'Identity verified', svg: { __html: BD.shield } }];
+    const quotes = all.filter(r => r.text.length > 90 && r.text.length < 230).slice(0, 10);
+    const by = d => () => { const el = document.getElementById('quote-strip'); if (el) el.scrollBy({ left: d * 540, behavior: 'smooth' }); };
+    return { quotes, stripPrev: by(-1), stripNext: by(1), badges, cats, chips, stars: [1, 2, 3, 4, 5], shown: list.slice(0, s.n), canMore: list.length > s.n, more: () => this.setState({ n: s.n + 12 }),
+      heading: A ? 'Apartment ' + A.num : 'Recent reviews from every apartment', sub: A ? A.rating + ' · ' + A.reviews + ' reviews on Airbnb · showing ' + Math.min(s.n, list.length) + ' of ' + list.length + ' recent' : 'Showing ' + Math.min(s.n, list.length) + ' of ' + list.length + ' recent reviews',
+      airbnbUrl: A ? A.url : 'https://www.airbnb.com/users/profile/1466767485716836146', airbnbLabel: A ? 'All ' + A.reviews + ' reviews on Airbnb' : 'See all 9,793 reviews on Airbnb', reviewCols: this.cols(list), quoteTrack: quotes.concat(quotes), sub: (A ? A.rating + ' · ' + A.reviews + ' reviews on Airbnb' : list.length + ' recent reviews from all 13 apartments') + ' · hover to pause' };
+  }
+}
+</script>
+</body>
+</html>
